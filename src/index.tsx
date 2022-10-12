@@ -1,19 +1,22 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { render } from "react-dom";
+import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { Store } from "redux";
-
 import App from "./App";
+import reportWebVitals from "./reportWebVitals";
 import reducer from "./store/reducer";
 
 const store: Store<ArticleState, ArticleAction> & {
   dispatch: DispatchType;
-} = configureStore({reducer});
+} = configureStore({ reducer });
 
-const rootElement = document.getElementById("root");
-render(
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement
+);
+root.render(
   <Provider store={store}>
     <App />
-  </Provider>,
-  rootElement
+  </Provider>
 );
+
+reportWebVitals();

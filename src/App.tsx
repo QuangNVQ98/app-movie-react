@@ -1,36 +1,51 @@
 import * as React from "react";
-import { useSelector, shallowEqual, useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import "./App.css";
+import { Banner } from "./components/Banner";
+import { Footer } from "./components/Footer";
+import { Header } from "./components/Header";
+import { HomeContent } from "./components/HomeContent";
 import "./index.scss";
-
-import { Article } from "./components/Article";
-import { AddArticle } from "./components/AddArticle";
-import { addArticle, removeArticle } from "./store/actionCreators";
-import { Dispatch } from "redux";
+import { getHomeData } from "./utils/api";
+import { Item } from "./utils/types";
 
 const App: React.FC = () => {
-  const articles: readonly IArticle[] = useSelector(
-    (state: ArticleState) => state.articles,
-    shallowEqual
-  );
 
-  const dispatch: Dispatch<any> = useDispatch();
+  const [main, setMain] = useState<Item>(
+    {
+      poster_path: '',
+      title: '',
+      name: '',
+      overview: '',
+      backdrop_path: '',
+      id: 8,
+      media_type: "movie",
+      vote_average: 0
+    }
+  )
 
-  const saveArticle = React.useCallback(
-    (article: IArticle) => dispatch(addArticle(article)),
-    [dispatch]
-  );
+  useEffect(() => {
+    const init = async () => {
+      const data = await getHomeData();
+      const trending = data["Trending Movies"];
+
+      setMain(trending[new Date().getDate() % trending.length]);
+      console.log("data: ", data);
+      console.log("main: ", trending[new Date().getDate() % trending.length]);
+    };
+
+    init();
+  }, []);
 
   return (
     <main>
-      <h1>My Articles</h1>
-      <AddArticle saveArticle={saveArticle} />
-      {articles.map((article: IArticle) => (
-        <Article
-          key={article.id}
-          article={article}
-          removeArticle={removeArticle}
-        />
-      ))}
+      <Header></Header>
+
+      <Banner movie={main}></Banner>
+
+      <HomeContent></HomeContent>
+
+      <Footer></Footer>
     </main>
   );
 };
