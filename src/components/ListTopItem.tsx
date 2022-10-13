@@ -3,7 +3,7 @@ import { Item } from "../utils/types";
 
 export const ListTopItem = ({ index, item }: { index: number; item: Item }) => {
   return (
-    <div className="swiper-slide flex max-w-[300px] h-210 relative justify-end id_item">
+    <div className="swiper-slide flex max-w-[300px] h-210 relative justify-end">
       <img
         className="w-1 absolute -left-30"
         src={index ? require(`../assets/images/number-${index}.png`) : ""}
