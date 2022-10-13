@@ -5,12 +5,16 @@ export const getHomeData: () => Promise<any> = async () => {
   const HomeAPIRoutes: {
     [key: string]: { url: string; media_type: "tv" | "movie" };
   } = {
-    "Trending Movies": { url: "/trending/movie/week", media_type: "movie" },
-    "Popular Movies": { url: "/movie/popular", media_type: "movie" },
-    "Top Rated Movies": { url: "/movie/top_rated", media_type: "movie" },
-    "Trending TV": { url: "/trending/tv/week", media_type: "tv" },
-    "Popular TV": { url: "/tv/popular", media_type: "tv" },
-    "Top Rated TV": { url: "/tv/top_rated", media_type: "tv" },
+    "Trending_Movies": { url: "/trending/movie/day", media_type: "movie" },
+    "Popular_Movies": { url: "/movie/popular", media_type: "movie" },
+    "Top_Rated_Movies": { url: "/movie/top_rated", media_type: "movie" },
+    "Upcoming_Movies": { url: "/movie/upcoming", media_type: "movie" },
+    "Now_Playing_Movies": { url: "/movie/now_playing", media_type: "movie" },
+    "Trending_TV": { url: "/trending/tv/day", media_type: "tv" },
+    "Popular_TV": { url: "/tv/popular", media_type: "tv" },
+    "Top_Rated_TV": { url: "/tv/top_rated", media_type: "tv" },
+    "On_The_Air_TV": { url: "/tv/on_the_air", media_type: "tv" },
+    "Airing_Today_TV": { url: "/tv/airing_today", media_type: "tv" },
   };
 
   const promises = await Promise.all(

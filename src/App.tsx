@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import { Banner } from "./components/Banner";
 import { Footer } from "./components/Footer";
@@ -7,29 +7,21 @@ import { Header } from "./components/Header";
 import { HomeContent } from "./components/HomeContent";
 import "./index.scss";
 import { getHomeData } from "./utils/api";
-import { Item } from "./utils/types";
+import { randomNumber } from "./utils/helper/random-number.helper";
+import { CategoryMovie, Item } from "./utils/types";
 
 const App: React.FC = () => {
 
-  const [main, setMain] = useState<Item>(
-    {
-      poster_path: '',
-      title: '',
-      name: '',
-      overview: '',
-      backdrop_path: '',
-      id: 8,
-      media_type: "movie",
-      vote_average: 0
-    }
-  )
+  const [movieData, setmovieData] = useState<Record<CategoryMovie, Item[]> | null | undefined>()
+  const [main, setMain] = useState<Item>()
 
   useEffect(() => {
     const init = async () => {
       const data = await getHomeData();
-      const trending = data["Trending Movies"];
+      setmovieData(data)
+      const trending = data["Trending_Movies"];
 
-      setMain(trending[new Date().getDate() % trending.length]);
+      setMain(trending[randomNumber(10, trending.length-1)]);
       console.log("data: ", data);
       console.log("main: ", trending[new Date().getDate() % trending.length]);
     };
@@ -43,7 +35,8 @@ const App: React.FC = () => {
 
       <Banner movie={main}></Banner>
 
-      <HomeContent></HomeContent>
+      {/* <HomeContent></HomeContent> */}
+      <HomeContent movieData={movieData}></HomeContent>
 
       <Footer></Footer>
     </main>

@@ -1,12 +1,36 @@
+export type CategoryMovie =
+  | "Trending_Movies"
+  | "Popular_Movies"
+  | "Top_Rated_Movies"
+  | "Upcoming_Movies"
+  | "Now_Playing_Movies"
+  | "Trending_TV"
+  | "Popular_TV"
+  | "Top_Rated_TV"
+  | "On_The_Air_TV"
+  | "Airing_Today_TV";
+
+export interface MovieData {
+  [id: string]: Item[];
+}
 export interface Item {
-  poster_path: string;
-  title?: string;
-  name?: string;
-  overview: string;
+  adult: boolean;
   backdrop_path: string;
+  genre_ids: any[];
   id: number;
   media_type: "tv" | "movie";
+  original_language: string;
+  original_title: string;
+  overview: string;
+  popularity: number
+  poster_path: string;
+  release_date: string;
+  first_air_date: string;
+  title?: string;
+  video: boolean;
   vote_average: number;
+  vote_count: number
+  name?: string;
 }
 
 export interface Detail {

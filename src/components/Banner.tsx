@@ -3,10 +3,9 @@ import { useEffect } from "react";
 import { imageOriginal } from "../utils/constants";
 import { Item } from "../utils/types";
 
-export const Banner = ({movie}: {movie: Item}) => {
-
+export const Banner = ({ movie }: { movie: Item | null | undefined }) => {
   useEffect(() => {
-    console.log('movie main: ', movie)
+    console.log("movie main: ", movie);
   }, [movie]);
 
   return (
@@ -14,7 +13,7 @@ export const Banner = ({movie}: {movie: Item}) => {
       <div className="w-full h-screen relative">
         <img
           className="w-full h-full object-cover brightness-75"
-          src={imageOriginal(movie?.backdrop_path)}
+          src={movie?.backdrop_path ? imageOriginal(movie?.backdrop_path) : ""}
           alt=""
         />
 

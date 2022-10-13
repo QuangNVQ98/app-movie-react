@@ -3,6 +3,9 @@ body {
   background-color: #141414;
   overflow-x: hidden;
 }
+.swiper {
+  overflow: unset !important;
+}
 
 .swiper-container {
   /* overflow: hidden; */
@@ -14,24 +17,12 @@ body {
   position: relative;
 }
 
-@media screen and (max-width : 500px) {
-  .swiper-container-1{
-    overflow: hidden;
-  }
 
-  .swiper-container {
-    overflow: hidden;
-  }
-
-  .swiper-slide {
-    height: 170px !important;
-  }
-}
 
 .swiper-slide {
   transition: all 300ms ease-in-out;
   border-radius: 5px;
-  height: 210px;
+  height: 210px !important;
   display: flex;
   justify-items: end;
   align-items: center;
@@ -88,6 +79,25 @@ body {
     max-width: 10.5rem;
     border-radius: 2px;
   }
+}
+
+@media screen and (max-width : 500px) {
+  .swiper-container-1{
+    overflow: hidden;
+  }
+
+  .swiper-container {
+    overflow: hidden;
+  }
+  
+  .swiper {
+    overflow: hidden !important;
+  }
+
+  .swiper-slide > div {
+    height: 170px !important;
+  }
+
 }
 
 .hidden-long-text {
