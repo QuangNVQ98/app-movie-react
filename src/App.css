@@ -110,7 +110,7 @@ body {
   /* white-space: pre-line; */
 }
 
-.id_item > .id_hover {
+.swiper-slide > .id_hover {
   visibility: hidden;
   opacity: 0;
   transition: visibility 0.2s ease-in-out, opacity 0.4s linear;
@@ -119,8 +119,12 @@ body {
 /* .id_item:hover .id_normal {
   display: none !important;
 } */
+.swiper-slide:hover {
+  z-index: 60;
+}
 
-.id_item:hover > .id_hover {
+.swiper-slide:hover > .id_hover {
   visibility: visible;
   opacity: 1;
+  z-index: 70;
 }
