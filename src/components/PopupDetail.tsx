@@ -40,10 +40,10 @@ export const PopupDetail = ({ selectedID, mediaType, setSelectedID, setShowPopup
     <div className="z-[101] w-full min-h-screen h-full bg-black-05 z-50 overflow-y-scroll fixed top-[50%] left-[50%] !-translate-x-1/2 !-translate-y-1/2 ">
       <div className="w-full lg:w-[60%] h-auto bg-gray-18 lg:rounded-md shadow-popup-detail lg:my-35 lg:left-[21%] relative">
         <div
-          className="absolute top-10 right-15 cursor-pointer z-50 transition transform ease-in-out duration-700 hover:rotate-180"
+          className="absolute top-10 right-15 cursor-pointer z-50 transition transform ease-in-out duration-700 hover:rotate-180 w-35 h-35 rounded-full bg-gray-18 flex justify-center items-center"
           onClick={closePopupDetail}
         >
-          <i className="fa-solid fa-circle-xmark text-3xl"></i>
+          <i className="fa-solid fa-xmark text-lg text-white"></i>
         </div>
         <div className="w-full h-[40vh] lg:h-[70vh] relative">
           <img
