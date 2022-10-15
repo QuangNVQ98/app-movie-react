@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
-import "./App.css";
+import "./assets/styles/styles.scss";
+import "./App.scss";
 import { Banner } from "./components/Banner";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
@@ -30,7 +31,7 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <main>
+    <>
       <Header></Header>
 
       <Banner movie={main}></Banner>
@@ -39,7 +40,7 @@ const App: React.FC = () => {
       <HomeContent movieData={movieData}></HomeContent>
 
       <Footer></Footer>
-    </main>
+    </>
   );
 };
 

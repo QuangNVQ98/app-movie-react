@@ -2,7 +2,7 @@ import * as React from "react";
 
 export const Header: React.FC = () => {
   return (
-    <header className="fixed w-full w-screen z-20">
+    <header className="fixed w-full w-screen z-[100]">
       <div
         className="
           flex flex-row

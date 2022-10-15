@@ -1,7 +1,13 @@
 import { imageResize } from "../utils/constants";
 import { Item } from "../utils/types";
 
-export const ListItem = ({ item }: { item: Item }) => {
+export const ListItem = ({ item, setShowPopup }: { item: Item, setShowPopup: any }) => {
+  
+  const openPopupDetail = () => {
+    setShowPopup(true);
+    document.body.classList.add('overflow-y-hidden');
+  }
+
   return (
     <div className="swiper-slide flex max-w-[300px] h-170 relative justify-center items-center id_item">
       <img
@@ -9,7 +15,7 @@ export const ListItem = ({ item }: { item: Item }) => {
         src={item.poster_path ? imageResize(item.poster_path, "w300") : ""}
         alt=""
       />
-      <div className="id_hover w-435 h-411 border-ra rounded-md bg-gray-14 text-white absolute flex flex-col z-30 origin-center transform-none opacity-100 shadow-movie">
+      <div className="id_hover mb-100 w-435 h-411 border-ra rounded-md bg-gray-14 text-white absolute flex flex-col z-30 origin-center transform-none opacity-100 shadow-movie">
         <div className="w-full h-245">
           <img
             className="w-full h-full object-cover !max-w-full !max-h-full"
@@ -20,17 +26,21 @@ export const ListItem = ({ item }: { item: Item }) => {
         <div className="w-full h-full p-15">
           <div className="w-full h-auto flex flex-row justify-between mb-20">
             <div className="flex">
-              <div className="flex justify-center items-center pl-4 rounded-full text-black bg-gray-e6 w-45 h-45 mr-8 cursor-pointer">
-                <i className="fa-solid fa-play text-xl"></i>
-              </div>
-              <div className="flex justify-center items-center pl-2 rounded-full text-white bg-gray-2a w-45 h-45 mr-8 border-solid border-2 border-white cursor-pointer">
+              <button className="learn-more">
+                <span className="circle" aria-hidden="true">
+                  <span className="icon arrow"></span>
+                </span>
+                <span className="button-text">Watch</span>
+              </button>
+              {/* <div className="flex justify-center items-center pl-2 rounded-full text-white bg-gray-2a w-45 h-45 mr-8 border-solid border-2 border-white cursor-pointer">
                 <i className="fa-regular fa-plus text-xl"></i>
               </div>
               <div className="flex justify-center items-center pl-2 rounded-full text-white bg-gray-2a w-45 h-45 mr-8 border-solid border-2 border-white cursor-pointer">
                 <i className="fa-regular fa-thumbs-up text-xl"></i>
-              </div>
+              </div> */}
             </div>
-            <div className="flex justify-center items-center pl-1 rounded-full text-white bg-gray-2a w-45 h-45 mr-8 border-solid border-2 border-white cursor-pointer">
+            <div className="flex justify-center items-center pl-1 rounded-full text-white bg-gray-2a w-45 h-45 mr-8 border-solid border-2 border-white cursor-pointer"
+              onClick={openPopupDetail}>
               <i className="fa fa-chevron-down"></i>
             </div>
           </div>
