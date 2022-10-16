@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getMovieDetails } from "../utils/api";
 import { imageOriginal } from "../utils/constants";
 import { Detail, Cast, Item, VideoTrailer } from "../utils/types";
+import {SimilarItem} from "./ListSimilarItem";
 
 interface MovieProps {
   data: Detail;
@@ -80,93 +81,45 @@ export const PopupDetail = ({ selectedID, mediaType, setSelectedID, setShowPopup
             <div className="mb-8 leading-5">
               <span className="text-gray-77">Actor: </span>
               <span className="text-gray-e5">
-                Cillian Murphy, Sam Neill, Helen MCCroy
+                {
+                  movies?.casts.slice(0, 7).map((item: Cast, index: number) => (
+                    <span key={item.id}>
+                      {item.name + ((index === 6) ? '' : ', ')}
+                    </span>
+                  ))
+                }
               </span>
             </div>
             <div className="mb-8 leading-5">
               <span className="text-gray-77">Category: </span>
               <span className="text-gray-e5">
-                Chương trình truyền hình tội phạm, Anh, Thời kỳ lịch sử
+                {
+                  movies?.data?.genres.map((item: any, index: number) => (
+                    <span key={item.id}>
+                      {item.name + ((index === movies?.data?.genres.length-1) ? '' : ', ')}
+                    </span>
+                  ))
+                }
               </span>
             </div>
             <div className="mb-8 leading-5">
-              <span className="text-gray-77">Type: </span>
-              <span className="text-gray-e5">Violent</span>
+              <span className="text-gray-77">Release date: </span>
+              <span className="text-gray-e5">{movies?.data.release_date}</span>
             </div>
           </div>
         </div>
 
-        <div className="w-full h-auto px-15 lg:px-50 py-15 mt-5 lg:mt-30 text-gray-e5">
-          <div className="text-gray-e5 text-xl mb-20 font-medium">
-            Nội dung tương tự
+        <div className="w-full h-auto px-15 lg:px-50 py-15 mt-5 lg:mt-15 text-gray-e5">
+          <div className="text-gray-e5 text-xl lg:text-2xl mb-20 font-medium">
+            Similar movies
           </div>
           <div className="w-full flex flex-wrap">
-            <div className="w-[47%] lg:w-[31%] h-360 bg-gray-2f rounded-md mb-20 mr-10 lg:mr-15">
-              <div className="w-full h-2/5">
-                <img
-                  className="w-full h-full object-cover rounded-t-md"
-                  src="https://image.tmdb.org/t/p/w500/th4E1yqsE8DGpAseLiUrI60Hf8V.jpg"
-                  alt=""
-                />
-              </div>
-              <div className="flex justify-between items-center py-15 px-15">
-                <div className="font-medium text-lg">Sweet girl</div>
-                <div className="flex justify-center items-center pl-1 rounded-full text-white bg-gray-2a w-35 h-35 border-solid border-2 border-white cursor-pointer">
-                  <i className="fa-regular fa-plus text-base"></i>
-                </div>
-              </div>
-              <div className="px-15 font-thin text-xs leading-5 text-gray-d2 hidden-long-text">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi
-                debitis quae rerum! Eveniet saepe porro libero, sapiente ad
-                recusandae ea, earum tenetur natus, quos ab accusamus,
-                recusandae ea, earum tenetur natus, quos ab accusamus,
-                recusandae ea, earum tenetur natus, quos ab accusamus?
-              </div>
-            </div>
-            <div className="w-[47%] lg:w-[31%] h-360 bg-gray-2f rounded-md mb-20 mr-10 lg:mr-15">
-              <div className="w-full h-2/5">
-                <img
-                  className="w-full h-full object-cover rounded-t-md"
-                  src="https://image.tmdb.org/t/p/w500/m76LAg0MchIcIW9i4yXsQPGQJJF.jpg"
-                  alt=""
-                />
-              </div>
-              <div className="flex justify-between items-center py-15 px-15">
-                <div className="font-medium text-lg">Sweet girl</div>
-                <div className="flex justify-center items-center pl-1 rounded-full text-white bg-gray-2a w-35 h-35 border-solid border-2 border-white cursor-pointer">
-                  <i className="fa-regular fa-plus text-base"></i>
-                </div>
-              </div>
-              <div className="px-15 font-thin text-xs leading-5 text-gray-d2 hidden-long-text">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi
-                debitis quae rerum! Eveniet saepe porro libero, sapiente ad
-                recusandae ea, earum tenetur natus, quos ab accusamus,
-                recusandae ea, earum tenetur natus, quos ab accusamus,
-                recusandae ea, earum tenetur natus, quos ab accusamus?
-              </div>
-            </div>
-            <div className="w-[47%] lg:w-[31%] h-360 bg-gray-2f rounded-md mb-20 mr-10 lg:mr-15">
-              <div className="w-full h-2/5">
-                <img
-                  className="w-full h-full object-cover rounded-t-md"
-                  src="https://image.tmdb.org/t/p/w500/fSbqPbqXa7ePo8bcnZYN9AHv6zA.jpg"
-                  alt=""
-                />
-              </div>
-              <div className="flex justify-between items-center py-15 px-15">
-                <div className="font-medium text-lg">Sweet girl</div>
-                <div className="flex justify-center items-center pl-1 rounded-full text-white bg-gray-2a w-35 h-35 border-solid border-2 border-white cursor-pointer">
-                  <i className="fa-regular fa-plus text-base"></i>
-                </div>
-              </div>
-              <div className="px-15 font-thin text-xs leading-5 text-gray-d2 hidden-long-text">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi
-                debitis quae rerum! Eveniet saepe porro libero, sapiente ad
-                recusandae ea, earum tenetur natus, quos ab accusamus,
-                recusandae ea, earum tenetur natus, quos ab accusamus,
-                recusandae ea, earum tenetur natus, quos ab accusamus?
-              </div>
-            </div>
+
+            {movies?.similar.map(
+              (item: Item) => (
+                <SimilarItem key={item.id} item={item}></SimilarItem>
+              )
+            )}  
           </div>
         </div>
 
@@ -194,7 +147,7 @@ export const PopupDetail = ({ selectedID, mediaType, setSelectedID, setShowPopup
         </div>
 
         <div className="w-full h-auto px-15 lg:px-50 py-15 text-gray-e5">
-          <div className="text-gray-e5 text-xl mb-20 font-medium">
+          <div className="text-gray-e5 text-xl lg:text-2xl mb-20 font-medium">
             Giới thiệu về <span className="font-semibold">Sweet Girl</span>
           </div>
           <div className="text-xs lg:text-sm leading-5">

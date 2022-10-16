@@ -120,16 +120,6 @@ body {
   }
 }
 
-.hidden-long-text {
-  display: -webkit-box;
-  -webkit-line-clamp: 7;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  word-break: break-word;
-  /* white-space: pre-line; */
-}
-
 .swiper {
   z-index: 60 !important;
 }
