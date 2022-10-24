@@ -15,6 +15,7 @@ export const PopupDetail = ({ selectedID, mediaType, setSelectedID, setShowPopup
 
   console.log('PopupDetail selectedID: ',selectedID)
   const [movies, setMovieData] = useState<MovieProps>()
+  const [collapsed, setCollapsed] = useState<boolean>(true)
 
   useEffect(() => {
 
@@ -35,6 +36,10 @@ export const PopupDetail = ({ selectedID, mediaType, setSelectedID, setShowPopup
     setSelectedID(null);
     setShowPopup(false)
     document.body.classList.remove("overflow-y-hidden")
+  }
+
+  const changeCollapsed = () => {
+    setCollapsed(!collapsed)
   }
 
   return (
@@ -113,13 +118,18 @@ export const PopupDetail = ({ selectedID, mediaType, setSelectedID, setShowPopup
           <div className="text-gray-e5 text-xl lg:text-2xl mb-20 font-medium">
             Similar movies
           </div>
-          <div className="w-full flex flex-wrap">
+          <div className={collapsed ? "w-full flex flex-wrap shortened" : "w-full flex flex-wrap"} >
 
             {movies?.similar.map(
               (item: Item) => (
                 <SimilarItem key={item.id} item={item}></SimilarItem>
               )
             )}  
+          </div>
+          <div className="section-divider collapsed">
+                <div className="section-divider-icon" onClick={changeCollapsed}>
+                  <i className={collapsed ? "fa fa-chevron-down" : "fa fa-chevron-up"}></i>
+                </div>
           </div>
         </div>
 
