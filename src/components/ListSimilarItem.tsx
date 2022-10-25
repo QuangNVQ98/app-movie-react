@@ -12,7 +12,7 @@ export const SimilarItem = ({ item }: { item: Item }) => {
         />
       </div>
       <div className="flex justify-between items-center py-15 px-15 h-[80px]">
-        <div className="font-medium text-lg hidden-long-text-title">{item.media_type == "movie" ? item?.title : item?.name}</div>
+        <div className="font-medium text-lg hidden-long-text-title">{item.media_type === "movie" ? item?.title : item?.name}</div>
         <div className="flex justify-center items-center pl-2 rounded-full text-white bg-gray-2a min-w-[35px] w-35 h-35 border-solid border-2 border-white cursor-pointer">
           <i className="fa fa-play text-xs"></i>
         </div>

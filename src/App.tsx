@@ -35,8 +35,7 @@ const App: React.FC = () => {
       <Header></Header>
 
       <Banner movie={main}></Banner>
-
-      {/* <HomeContent></HomeContent> */}
+      
       <HomeContent movieData={movieData}></HomeContent>
 
       <Footer></Footer>

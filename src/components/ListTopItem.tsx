@@ -4,6 +4,10 @@ import { Item } from "../utils/types";
 export const ListTopItem = ({ index, item, setSelectedID, setShowPopup, setMediaType }: { index: number, item: Item, setSelectedID: any, setShowPopup: any, setMediaType: any }) => {
   
   const openPopupDetail = () => {
+
+    let refresh = window.location.protocol + "//" + window.location.host + window.location.pathname + `?id=${item.id}&media_type=${item.media_type}`;
+    window.history.pushState({ path: refresh }, '', refresh);
+
     setSelectedID(item.id);
     setMediaType(item.media_type);
     setShowPopup(true);
@@ -51,18 +55,18 @@ export const ListTopItem = ({ index, item, setSelectedID, setShowPopup, setMedia
             </div>
           </div>
           <div className="mb-15">
-            {item.media_type == "movie" ? item?.title : item?.name}
+            {item.media_type === "movie" ? item?.title : item?.name}
           </div>
 
           <div className="flex items-center text-gray-6d text-sm">
             <span className="mr-10">
-              {item.media_type == "movie" ? "Movie" : "TV show"}
+              {item.media_type === "movie" ? "Movie" : "TV show"}
             </span>
             <span className="mr-10">
               <i className="fa fa-circle text-[5px] text-white"></i>
             </span>
             <span className="mr-10">
-              {item.media_type == "movie"
+              {item.media_type === "movie"
                 ? item?.release_date
                 : item?.first_air_date}
             </span>
