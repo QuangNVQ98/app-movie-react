@@ -1,23 +1,22 @@
-import { useEffect, useState } from "react";
-import ReactDOM from "react-dom";
-import { getMovieDetails, getTVDetails, getTVSeasons } from "../utils/api";
-import { imageOriginal } from "../utils/constants";
-import { Cast, Detail, Item, Season, VideoTrailer } from "../utils/types";
-import { SimilarItem } from "./ListSimilarItem";
+import { useEffect, useState } from "react"
+import { getMovieDetails, getTVDetails, getTVSeasons } from "../utils/api"
+import { imageOriginal } from "../utils/constants"
+import { Cast, Detail, Item, Season, VideoTrailer } from "../utils/types"
+import { SimilarItem } from "./ListSimilarItem"
 
 interface MovieProps {
-  data: Detail;
-  casts: Cast[];
-  similar: Item[];
-  videos: VideoTrailer[];
+  data: Detail
+  casts: Cast[]
+  similar: Item[]
+  videos: VideoTrailer[]
 }
 
 interface TVProps {
-  data: Detail;
-  casts: Cast[];
-  similar: Item[];
-  videos: VideoTrailer[];
-  seasons?: Season[];
+  data: Detail
+  casts: Cast[]
+  similar: Item[]
+  videos: VideoTrailer[]
+  seasons?: Season[]
 }
 
 export const PopupDetail = ({
@@ -26,62 +25,54 @@ export const PopupDetail = ({
   setSelectedID,
   setShowPopup,
 }: {
-  selectedID: string | null | undefined;
-  mediaType: "movie" | "tv" | null | undefined;
-  setSelectedID: any;
-  setShowPopup: any;
+  selectedID: string | null | undefined
+  mediaType: "movie" | "tv" | null | undefined
+  setSelectedID: any
+  setShowPopup: any
 }) => {
-  const [movies, setMovieData] = useState<MovieProps>();
-  const [collapsed, setCollapsed] = useState<boolean>(true);
-  const [showSeasons, setShowSeasons] = useState<boolean>(false);
+  const [movies, setMovieData] = useState<MovieProps>()
+  const [collapsed, setCollapsed] = useState<boolean>(true)
+  const [showSeasons, setShowSeasons] = useState<boolean>(false)
 
   useEffect(() => {
     const getMovieData = async (_selectedID: any) => {
-      const data: MovieProps = await getMovieDetails(_selectedID);
-      setMovieData(data);
-    };
+      const data: MovieProps = await getMovieDetails(_selectedID)
+      setMovieData(data)
+    }
 
     const getTVData = async (_selectedID: any) => {
-      const data: TVProps = await getTVDetails(_selectedID);
-      const seasonsData = await getTVSeasons(_selectedID);
-      data.seasons = seasonsData;
-      console.log("dataTV: ", data);
+      const data: TVProps = await getTVDetails(_selectedID)
+      const seasonsData = await getTVSeasons(_selectedID)
+      data.seasons = seasonsData
+      console.log("dataTV: ", data)
 
-      setMovieData(data);
-    };
+      setMovieData(data)
+    }
 
     if (selectedID && mediaType === "movie") {
-      getMovieData(selectedID);
+      getMovieData(selectedID)
     }
 
     if (selectedID && mediaType === "tv") {
-      getTVData(selectedID);
+      getTVData(selectedID)
     }
-  }, [selectedID]);
+  }, [selectedID])
 
   const closePopupDetail = () => {
-    window.history.pushState({}, document.title, "/" + "browse");
+    window.history.pushState({}, document.title, "/" + "browse")
 
-    setSelectedID(null);
-    setShowPopup(false);
-    document.body.classList.remove("overflow-y-hidden");
-  };
+    setSelectedID(null)
+    setShowPopup(false)
+    document.body.classList.remove("overflow-y-hidden")
+  }
 
   const changeCollapsed = () => {
-    setCollapsed(!collapsed);
-  };
+    setCollapsed(!collapsed)
+  }
 
   const toggleSeasonsDropdown = () => {
-    setShowSeasons(!showSeasons);
-  };
-
-  const handleClickOutside = (event: any) => {
-    const domNode = ReactDOM.findDOMNode(this);
-
-    if (!domNode || !domNode.contains(event.target)) {
-      setShowSeasons(false);
-    }
-}
+    setShowSeasons(!showSeasons)
+  }
 
   return (
     <div className="z-[101] w-full min-h-screen h-full bg-black-05 z-50 overflow-y-scroll fixed top-[50%] left-[50%] !-translate-x-1/2 !-translate-y-1/2 ">
@@ -153,7 +144,7 @@ export const PopupDetail = ({
         </div>
 
         <div className="w-full h-auto px-15 lg:px-50 py-15 mt-5 lg:mt-15 text-gray-e5">
-          <div className="w-full flex justify-between">
+          <div className="w-full flex justify-between items-center">
             <div className="text-gray-e5 text-xl lg:text-2xl mb-20 font-medium">
               Episodes
             </div>
@@ -197,6 +188,40 @@ export const PopupDetail = ({
                 </div>
               </div>
             </div>
+          </div>
+
+          <div className="w-full mt-10">
+            <div className="w-full h-170 px-25 py-10 border-t border-gray-40 flex items-center">
+              <div className="text-gray-d2 text-2xl w-[5%]">1</div>
+              
+              <img className="w-[25%] h-[60%] object-cover mr-15" src={require("../assets/images/sub-banner.jpg")} alt="" />
+              
+              <div className="w-[70%]">
+                <div className="text-white text-xl font-medium mb-5">Selina Kyle</div>
+                <div className="text-gray-d2 text-sm font-thin hidden-long-text-3">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Error
+                  repellat totam id earum? Commodi fuga ad ratione! Accusantium,
+                  mollitia cum dignissimos a eius ea rerum inventore nesciunt, ? Commodi fuga ad ratione! Accusantium,
+                  mollitia cum dignissimos a eius ea rerum inventore nesciunt,
+                </div>
+              </div>
+            </div>
+            <div className="w-full h-170 px-25 py-10 border-t border-gray-40 flex items-center">
+              <div className="text-gray-d2 text-2xl w-[5%]">2</div>
+              
+              <img className="w-[25%] h-[60%] object-cover mr-15" src={require("../assets/images/sub-banner.jpg")} alt="" />
+              
+              <div className="w-[70%]">
+                <div className="text-white text-xl font-medium mb-5">Selina Kyle</div>
+                <div className="text-gray-d2 text-sm font-thin hidden-long-text-3">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Error
+                  repellat totam id earum? Commodi fuga ad ratione! Accusantium,
+                  mollitia cum dignissimos a eius ea rerum inventore nesciunt, ? Commodi fuga ad ratione! Accusantium,
+                  mollitia cum dignissimos a eius ea rerum inventore nesciunt,
+                </div>
+              </div>
+            </div>
+            
           </div>
         </div>
 
@@ -326,5 +351,5 @@ export const PopupDetail = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
