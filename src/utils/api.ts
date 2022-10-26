@@ -152,13 +152,10 @@ export const getTVSeasons: (id: string) => Promise<any> = async (id) => {
         item.name &&
         item.poster_path &&
         item.episodes.length > 0 &&
-        item.episodes.every((child: any) => child.name && child.still_path)
+        item.episodes.every((child: any) => child.name && child.still_path && child.air_date && child.overview)
     );
 
-  return {
-    seasons,
-    data,
-  };
+  return seasons;
 };
 
 export const search: (query: string, page?: number) => Promise<any> = async (

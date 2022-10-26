@@ -1,9 +1,14 @@
 import { imageResize } from "../utils/constants";
 import { Item } from "../utils/types";
 
-export const ListItem = ({ item, setShowPopup }: { item: Item, setShowPopup: any }) => {
+export const ListItem = ({ item, setSelectedID, setShowPopup, setMediaType }: { item: Item, setSelectedID: any, setShowPopup: any, setMediaType: any }) => {
   
   const openPopupDetail = () => {
+    let refresh = window.location.protocol + "//" + window.location.host + window.location.pathname + `?id=${item.id}&media_type=${item.media_type}`;
+    window.history.pushState({ path: refresh }, '', refresh);
+
+    setSelectedID(item.id);
+    setMediaType(item.media_type);
     setShowPopup(true);
     document.body.classList.add('overflow-y-hidden');
   }

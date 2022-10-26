@@ -1,13 +1,7 @@
-import * as React from "react";
-import { useEffect } from "react";
 import { imageOriginal } from "../utils/constants";
 import { Item } from "../utils/types";
 
 export const Banner = ({ movie }: { movie: Item | null | undefined }) => {
-  useEffect(() => {
-    console.log("movie main: ", movie);
-  }, [movie]);
-
   return (
     <section className="w-full h-auto">
       <div className="w-full h-screen relative">

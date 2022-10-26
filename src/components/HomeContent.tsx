@@ -68,7 +68,9 @@ export const HomeContent = ({
               <ListItem
                 key={item.id}
                 item={item}
+                setSelectedID={setSelectedID}
                 setShowPopup={setShowPopup}
+                setMediaType={setMediaType}
               ></ListItem>
             </SwiperSlide>
           ))}
@@ -123,7 +125,9 @@ export const HomeContent = ({
               <ListItem
                 key={item.id}
                 item={item}
+                setSelectedID={setSelectedID}
                 setShowPopup={setShowPopup}
+                setMediaType={setMediaType}
               ></ListItem>
             </SwiperSlide>
           ))}
@@ -148,7 +152,9 @@ export const HomeContent = ({
               <ListItem
                 key={item.id}
                 item={item}
+                setSelectedID={setSelectedID}
                 setShowPopup={setShowPopup}
+                setMediaType={setMediaType}
               ></ListItem>
             </SwiperSlide>
           ))}
@@ -173,7 +179,9 @@ export const HomeContent = ({
               <ListItem
                 key={item.id}
                 item={item}
+                setSelectedID={setSelectedID}
                 setShowPopup={setShowPopup}
+                setMediaType={setMediaType}
               ></ListItem>
             </SwiperSlide>
           ))}
@@ -198,7 +206,9 @@ export const HomeContent = ({
               <ListItem
                 key={item.id}
                 item={item}
+                setSelectedID={setSelectedID}
                 setShowPopup={setShowPopup}
+                setMediaType={setMediaType}
               ></ListItem>
             </SwiperSlide>
           ))}
@@ -223,7 +233,9 @@ export const HomeContent = ({
               <ListItem
                 key={item.id}
                 item={item}
+                setSelectedID={setSelectedID}
                 setShowPopup={setShowPopup}
+                setMediaType={setMediaType}
               ></ListItem>
             </SwiperSlide>
           ))}
@@ -248,7 +260,9 @@ export const HomeContent = ({
               <ListItem
                 key={item.id}
                 item={item}
+                setSelectedID={setSelectedID}
                 setShowPopup={setShowPopup}
+                setMediaType={setMediaType}
               ></ListItem>
             </SwiperSlide>
           ))}
@@ -273,7 +287,9 @@ export const HomeContent = ({
               <ListItem
                 key={item.id}
                 item={item}
+                setSelectedID={setSelectedID}
                 setShowPopup={setShowPopup}
+                setMediaType={setMediaType}
               ></ListItem>
             </SwiperSlide>
           ))}

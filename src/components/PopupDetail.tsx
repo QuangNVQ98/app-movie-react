@@ -1,7 +1,8 @@
-import { Fragment, useEffect, useState } from "react";
-import { getMovieDetails, getTVDetails } from "../utils/api";
+import { useEffect, useState } from "react";
+import ReactDOM from "react-dom";
+import { getMovieDetails, getTVDetails, getTVSeasons } from "../utils/api";
 import { imageOriginal } from "../utils/constants";
-import { Detail, Cast, Item, VideoTrailer } from "../utils/types";
+import { Cast, Detail, Item, Season, VideoTrailer } from "../utils/types";
 import { SimilarItem } from "./ListSimilarItem";
 
 interface MovieProps {
@@ -16,6 +17,7 @@ interface TVProps {
   casts: Cast[];
   similar: Item[];
   videos: VideoTrailer[];
+  seasons?: Season[];
 }
 
 export const PopupDetail = ({
@@ -29,23 +31,23 @@ export const PopupDetail = ({
   setSelectedID: any;
   setShowPopup: any;
 }) => {
-  console.log("PopupDetail selectedID: ", selectedID);
   const [movies, setMovieData] = useState<MovieProps>();
   const [collapsed, setCollapsed] = useState<boolean>(true);
+  const [showSeasons, setShowSeasons] = useState<boolean>(false);
 
   useEffect(() => {
-    const getMovieData = async (selectedID: any) => {
-      console.log("call API getMovieData");
-      const data: MovieProps = await getMovieDetails(selectedID);
+    const getMovieData = async (_selectedID: any) => {
+      const data: MovieProps = await getMovieDetails(_selectedID);
       setMovieData(data);
-      console.log("getMovieDetails: ", data);
     };
 
-    const getTVData = async (selectedID: any) => {
-      console.log("call API getTVData");
-      const data: TVProps = await getTVDetails(selectedID);
+    const getTVData = async (_selectedID: any) => {
+      const data: TVProps = await getTVDetails(_selectedID);
+      const seasonsData = await getTVSeasons(_selectedID);
+      data.seasons = seasonsData;
+      console.log("dataTV: ", data);
+
       setMovieData(data);
-      console.log("getTVData: ", data);
     };
 
     if (selectedID && mediaType === "movie") {
@@ -58,8 +60,7 @@ export const PopupDetail = ({
   }, [selectedID]);
 
   const closePopupDetail = () => {
-
-    window.history.pushState({}, document.title, "/" + '');
+    window.history.pushState({}, document.title, "/" + "browse");
 
     setSelectedID(null);
     setShowPopup(false);
@@ -69,6 +70,18 @@ export const PopupDetail = ({
   const changeCollapsed = () => {
     setCollapsed(!collapsed);
   };
+
+  const toggleSeasonsDropdown = () => {
+    setShowSeasons(!showSeasons);
+  };
+
+  const handleClickOutside = (event: any) => {
+    const domNode = ReactDOM.findDOMNode(this);
+
+    if (!domNode || !domNode.contains(event.target)) {
+      setShowSeasons(false);
+    }
+}
 
   return (
     <div className="z-[101] w-full min-h-screen h-full bg-black-05 z-50 overflow-y-scroll fixed top-[50%] left-[50%] !-translate-x-1/2 !-translate-y-1/2 ">
@@ -105,12 +118,12 @@ export const PopupDetail = ({
               {mediaType === "movie" ? movies?.data?.title : movies?.data?.name}
             </div>
 
-            <div className="font-thin text-xs leading-5">
+            <div className="font-thin text-sm leading-5 text-gray-d2">
               {movies?.data?.overview}
             </div>
           </div>
 
-          <div className="w-full lg:w-1/3 text-xs pl-15 leading-5">
+          <div className="w-full lg:w-1/3 text-sm pl-15 leading-5">
             <div className="mb-8 leading-5">
               <span className="text-gray-77">Actor: </span>
               <span className="text-gray-e5">
@@ -135,6 +148,54 @@ export const PopupDetail = ({
             <div className="mb-8 leading-5">
               <span className="text-gray-77">Release date: </span>
               <span className="text-gray-e5">{movies?.data.release_date}</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="w-full h-auto px-15 lg:px-50 py-15 mt-5 lg:mt-15 text-gray-e5">
+          <div className="w-full flex justify-between">
+            <div className="text-gray-e5 text-xl lg:text-2xl mb-20 font-medium">
+              Episodes
+            </div>
+
+            <div className="relative inline-block">
+              <div
+                className="flex justify-center items-center bg-gray-24 border border-gray-4d py-10 px-15 text-white cursor-pointer"
+                onClick={toggleSeasonsDropdown}
+              >
+                <span className="mr-26">Season 1</span>
+                <span>
+                  <i
+                    className={`fa ${
+                      showSeasons ? "fa fa-caret-up" : "fa fa-caret-down"
+                    }`}
+                  ></i>
+                </span>
+              </div>
+              <div
+                id="seasonsDropdown"
+                className={`hidden absolute overflow-auto right-0 z-10 mt-[0.1em] min-w-[4em] w-[240px] cursor-pointer text-white border border-gray-4d bg-gray-24 py-20 ${
+                  showSeasons ? "!block" : ""
+                }`}
+              >
+                <div className="mb-8 flex items-center px-15 py-10 hover:bg-gray-42">
+                  <span className="text-base font-medium mr-10">Season 1</span>
+                  <span className="text-xs">(22 episodes)</span>
+                </div>
+                <div className="mb-8 flex items-center px-15 py-10 hover:bg-gray-42">
+                  <span className="text-base font-medium mr-10">Season 2</span>
+                  <span className="text-xs">(22 episodes)</span>
+                </div>
+                <div className="mb-8 flex items-center px-15 py-10 hover:bg-gray-42">
+                  <span className="text-base font-medium mr-10">Season 3</span>
+                  <span className="text-xs">(22 episodes)</span>
+                </div>
+
+                <div className="mb-8 border border-gray-4d mx-10"></div>
+                <div className="text-base font-semibold text-center px-15 py-10 hover:bg-gray-42">
+                  Show all episodes
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -165,34 +226,35 @@ export const PopupDetail = ({
           </div>
         </div>
 
-        <div className="w-full h-auto px-15 lg:px-50 py-15 text-gray-e5">
-          <div className="text-gray-e5 text-xl mb-20 font-medium">
-            Trailer & Others
-          </div>
-          <div className="w-full flex flex-wrap">
-            {/* {movies &&
-              movies?.videos.length > 0 &&
-              movies?.videos.slice(0, 5).map((item) => (
-                <Fragment key={item.key}>
-                  <div className="w-[47%] lg:w-[31%] h-auto bg-gray-2f rounded-md mb-20 mr-15">
-                    <div
-                      className="relative h-0 w-full"
-                      style={{ paddingBottom: "56.25%" }}
-                    >
-                      <iframe
-                        className="absolute top-0 left-0 w-full h-full"
-                        src={`https://www.youtube.com/embed/${item.key}`}
-                        title="YouTube video player"
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                      ></iframe>
+        {/* {movies && (
+          <div className="w-full h-auto px-15 lg:px-50 py-15 text-gray-e5">
+            <div className="text-gray-e5 text-xl mb-20 font-medium">
+              Trailer & Others
+            </div>
+            <div className="w-full flex flex-wrap">
+              {movies?.videos.length > 0 &&
+                movies?.videos.slice(0, 5).map((item) => (
+                  <Fragment key={item.key}>
+                    <div className="w-[47%] lg:w-[31%] h-auto bg-gray-2f rounded-md mb-20 mr-15">
+                      <div
+                        className="relative h-0 w-full"
+                        style={{ paddingBottom: "56.25%" }}
+                      >
+                        <iframe
+                          className="absolute top-0 left-0 w-full h-full"
+                          src={`https://www.youtube.com/embed/${item.key}`}
+                          title="YouTube video player"
+                          frameBorder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        ></iframe>
+                      </div>
                     </div>
-                  </div>
-                </Fragment>
-              ))} */}
+                  </Fragment>
+                ))}
+            </div>
           </div>
-        </div>
+        )} */}
 
         <div className="w-full h-auto px-15 lg:px-50 py-15 text-gray-e5">
           <div className="text-gray-e5 text-xl lg:text-2xl mb-20 font-medium">
