@@ -108,3 +108,32 @@ button {
     }
   }
 }
+
+// .button-customize:before,
+// .button-customize:after {
+//     width: 70px;
+//     height: 30px;
+//     position: absolute;
+//     content: "";
+//     display: inline-block;
+//     background: #e6e6e6;
+//     border-radius: 50%;
+//     transition: transform 1s ease;
+//     transform: scale(0);
+//     z-index: -1;
+// }
+
+// .button-customize:before {
+//   top: -25%;
+//   left: 15%;
+// }
+
+// .button-customize:after {
+//   bottom: -25%;
+//   left: 15%;
+// }
+
+// .button-customize:hover:before,
+// .button-customize:hover:after {
+//   transform: none;
+// }

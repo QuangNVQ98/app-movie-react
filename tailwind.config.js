@@ -46,7 +46,7 @@ module.exports = {
     },
     colors: {
       'primary': '#f3f4f6',
-      'black-07': 'rgba(0,0,0,.7) 10%',
+      'black-07': 'rgba(0,0,0,.7) 30%',
       'white': '#FFF',
       'black': '#000',
       'gray-2a': '#2a2a2a',
