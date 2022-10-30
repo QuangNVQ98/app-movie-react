@@ -51,6 +51,10 @@ export const Header: React.FC = () => {
     }
   }
 
+  const goToHomePage = () => {
+    navigate('/browse')
+  }
+
   return (
     <header className="fixed w-full w-screen z-[100]">
       <div
@@ -72,6 +76,7 @@ export const Header: React.FC = () => {
             className="w-98 h-25 object-cover cursor-pointer"
             src={require("../assets/images/logo.png")}
             alt=""
+            onClick={goToHomePage}
           />
         </div>
         <div className="hidden grow pl-45 lg:flex flex-row text-primary">
