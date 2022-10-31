@@ -1,8 +1,13 @@
+import { actions } from "../store";
+import { useStore } from "../store/hooks";
 import { imageResize } from "../utils/constants";
 import { Item } from "../utils/types";
 
 export const ListTopItem = ({ index, item, setSelectedID, setShowPopup, setMediaType }: { index: number, item: Item, setSelectedID: any, setShowPopup: any, setMediaType: any }) => {
   
+  const [state, dispatch] = useStore();
+  console.log('state: ', state)
+
   const openPopupDetail = () => {
 
     let refresh = window.location.protocol + "//" + window.location.host + window.location.pathname + `?id=${item.id}&media_type=${item.media_type}`;
@@ -12,6 +17,14 @@ export const ListTopItem = ({ index, item, setSelectedID, setShowPopup, setMedia
     setMediaType(item.media_type);
     setShowPopup(true);
     document.body.classList.add('overflow-y-hidden');
+
+    const storeItem = {
+      selectedID: item.id,
+      mediaType: item.media_type,
+      showPopup: true
+    }
+
+    dispatch(actions.setSelectedMovies(storeItem))
   }
   
   return (

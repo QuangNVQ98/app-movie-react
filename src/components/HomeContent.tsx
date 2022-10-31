@@ -1,20 +1,21 @@
-import { CategoryMovie, Item } from "../utils/types"
-import { ListItem } from "./ListItem"
-import { ListTopItem } from "./ListTopItem"
-import { PopupDetail } from "./PopupDetail"
-import { Swiper, SwiperSlide } from "swiper/react"
-import { Navigation } from "swiper"
-import { useState } from "react"
+import { useState } from "react";
+import { Navigation } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { CategoryMovie, Item } from "../utils/types";
+import { ListItem } from "./ListItem";
+import { ListTopItem } from "./ListTopItem";
+import { PopupDetail } from "./PopupDetail";
 
 export const HomeContent = ({
   movieData,
 }: {
-  movieData: Record<CategoryMovie, Item[]> | null | undefined
+  movieData: Record<CategoryMovie, Item[]> | null | undefined;
 }) => {
-
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [selectedID, setSelectedID] = useState<string | null | undefined>();
-  const [mediaType, setMediaType] = useState<'movie' | 'tv' | null | undefined>();
+  const [mediaType, setMediaType] = useState<
+    "movie" | "tv" | null | undefined
+  >();
 
   return (
     <>
@@ -296,7 +297,14 @@ export const HomeContent = ({
         </Swiper>
       </section>
 
-      {showPopup && <PopupDetail selectedID={selectedID} mediaType={mediaType} setSelectedID={setSelectedID} setShowPopup={setShowPopup}></PopupDetail>}
+      {showPopup && (
+        <PopupDetail
+          selectedID={selectedID}
+          mediaType={mediaType}
+          setSelectedID={setSelectedID}
+          setShowPopup={setShowPopup}
+        ></PopupDetail>
+      )}
     </>
-  )
-}
+  );
+};
