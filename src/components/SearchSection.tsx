@@ -1,31 +1,27 @@
-import { useEffect, useState } from "react"
-import { useSearchParams } from "react-router-dom"
-import { search } from "../utils/api"
-import { Item } from "../utils/types"
-import { ListItem } from "./ListItem"
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { search } from "../utils/api";
+import { Item } from "../utils/types";
+import { ListItem } from "./ListItem";
 
 export const SearchSection = () => {
-  const [searchParams] = useSearchParams()
-  const [keyword, setKeyword] = useState<string>()
-  const [datas, setDatas] = useState<any>([])
-
-  const [showPopup, setShowPopup] = useState<boolean>(false);
-  const [selectedID, setSelectedID] = useState<string | null | undefined>();
-  const [mediaType, setMediaType] = useState<'movie' | 'tv' | null | undefined>();
+  const [searchParams] = useSearchParams();
+  const [keyword, setKeyword] = useState<string>();
+  const [datas, setDatas] = useState<any>([]);
 
   useEffect(() => {
-    const currentParams = Object.fromEntries(searchParams)
-    setKeyword(currentParams["q"])
+    const currentParams = Object.fromEntries(searchParams);
+    setKeyword(currentParams["q"]);
 
     const getSearchMovies = async (_keyword: any) => {
-      console.log("_keyword: ", _keyword)
-      const res: any = await search(_keyword)
-      console.log("resSearch: ", res)
-      setDatas(res["results"])
-    }
+      console.log("_keyword: ", _keyword);
+      const res: any = await search(_keyword);
+      console.log("resSearch: ", res);
+      setDatas(res["results"]);
+    };
 
-    getSearchMovies(currentParams["q"])
-  }, [searchParams])
+    getSearchMovies(currentParams["q"]);
+  }, [searchParams]);
 
   return (
     <>
@@ -41,18 +37,12 @@ export const SearchSection = () => {
 
         <div className="mt-35 w-full h-auto flex flex-wrap">
           {datas.map((item: Item) => (
-            <div className="mr-5 mb-35">
-              <ListItem
-                key={item.id}
-                item={item}
-                setSelectedID={setSelectedID}
-                setShowPopup={setShowPopup}
-                setMediaType={setMediaType}
-              ></ListItem>
+            <div className="mr-5 mb-35 w-[30%] lg:w-[16%]">
+              <ListItem key={item.id} item={item}></ListItem>
             </div>
           ))}
         </div>
       </section>
     </>
-  )
-}
+  );
+};

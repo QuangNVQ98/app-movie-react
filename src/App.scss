@@ -129,11 +129,13 @@ body {
 .swiper-slide > .id_hover {
   visibility: hidden;
   opacity: 0;
-  transition: visibility 1s ease-in-out, opacity 0.5s ease-in-out !important;
+  // transition: visibility 2s ease-in-out !important;
+  transition: all 500ms ease-in !important;
 }
 
 .swiper-slide:hover > .id_hover {
   visibility: visible;
+  transition-delay: 500ms !important;
   opacity: 1;
   z-index: 60 !important;
 }

@@ -1,21 +1,16 @@
-import { useState } from "react";
 import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useStore } from "../store/hooks";
 import { CategoryMovie, Item } from "../utils/types";
 import { ListItem } from "./ListItem";
 import { ListTopItem } from "./ListTopItem";
-import { PopupDetail } from "./PopupDetail";
 
 export const HomeContent = ({
   movieData,
 }: {
   movieData: Record<CategoryMovie, Item[]> | null | undefined;
 }) => {
-  const [showPopup, setShowPopup] = useState<boolean>(false);
-  const [selectedID, setSelectedID] = useState<string | null | undefined>();
-  const [mediaType, setMediaType] = useState<
-    "movie" | "tv" | null | undefined
-  >();
+  const [state, dispatch] = useStore();
 
   return (
     <>
@@ -39,9 +34,6 @@ export const HomeContent = ({
                     key={item.id}
                     index={index + 1}
                     item={item}
-                    setSelectedID={setSelectedID}
-                    setShowPopup={setShowPopup}
-                    setMediaType={setMediaType}
                   ></ListTopItem>
                 </SwiperSlide>
               )
@@ -66,13 +58,7 @@ export const HomeContent = ({
         >
           {movieData?.Trending_Movies.map((item: Item) => (
             <SwiperSlide key={item.id}>
-              <ListItem
-                key={item.id}
-                item={item}
-                setSelectedID={setSelectedID}
-                setShowPopup={setShowPopup}
-                setMediaType={setMediaType}
-              ></ListItem>
+              <ListItem key={item.id} item={item}></ListItem>
             </SwiperSlide>
           ))}
         </Swiper>
@@ -97,9 +83,6 @@ export const HomeContent = ({
                     key={item.id}
                     index={index + 1}
                     item={item}
-                    setSelectedID={setSelectedID}
-                    setShowPopup={setShowPopup}
-                    setMediaType={setMediaType}
                   ></ListTopItem>
                 </SwiperSlide>
               )
@@ -123,13 +106,7 @@ export const HomeContent = ({
         >
           {movieData?.Popular_TV.map((item: Item) => (
             <SwiperSlide key={item.id}>
-              <ListItem
-                key={item.id}
-                item={item}
-                setSelectedID={setSelectedID}
-                setShowPopup={setShowPopup}
-                setMediaType={setMediaType}
-              ></ListItem>
+              <ListItem key={item.id} item={item}></ListItem>
             </SwiperSlide>
           ))}
         </Swiper>
@@ -150,13 +127,7 @@ export const HomeContent = ({
         >
           {movieData?.Top_Rated_Movies.map((item: Item) => (
             <SwiperSlide key={item.id}>
-              <ListItem
-                key={item.id}
-                item={item}
-                setSelectedID={setSelectedID}
-                setShowPopup={setShowPopup}
-                setMediaType={setMediaType}
-              ></ListItem>
+              <ListItem key={item.id} item={item}></ListItem>
             </SwiperSlide>
           ))}
         </Swiper>
@@ -177,13 +148,7 @@ export const HomeContent = ({
         >
           {movieData?.Top_Rated_TV.map((item: Item) => (
             <SwiperSlide key={item.id}>
-              <ListItem
-                key={item.id}
-                item={item}
-                setSelectedID={setSelectedID}
-                setShowPopup={setShowPopup}
-                setMediaType={setMediaType}
-              ></ListItem>
+              <ListItem key={item.id} item={item}></ListItem>
             </SwiperSlide>
           ))}
         </Swiper>
@@ -204,13 +169,7 @@ export const HomeContent = ({
         >
           {movieData?.Now_Playing_Movies.map((item: Item) => (
             <SwiperSlide key={item.id}>
-              <ListItem
-                key={item.id}
-                item={item}
-                setSelectedID={setSelectedID}
-                setShowPopup={setShowPopup}
-                setMediaType={setMediaType}
-              ></ListItem>
+              <ListItem key={item.id} item={item}></ListItem>
             </SwiperSlide>
           ))}
         </Swiper>
@@ -231,13 +190,7 @@ export const HomeContent = ({
         >
           {movieData?.Upcoming_Movies.map((item: Item) => (
             <SwiperSlide key={item.id}>
-              <ListItem
-                key={item.id}
-                item={item}
-                setSelectedID={setSelectedID}
-                setShowPopup={setShowPopup}
-                setMediaType={setMediaType}
-              ></ListItem>
+              <ListItem key={item.id} item={item}></ListItem>
             </SwiperSlide>
           ))}
         </Swiper>
@@ -258,13 +211,7 @@ export const HomeContent = ({
         >
           {movieData?.On_The_Air_TV.map((item: Item) => (
             <SwiperSlide key={item.id}>
-              <ListItem
-                key={item.id}
-                item={item}
-                setSelectedID={setSelectedID}
-                setShowPopup={setShowPopup}
-                setMediaType={setMediaType}
-              ></ListItem>
+              <ListItem key={item.id} item={item}></ListItem>
             </SwiperSlide>
           ))}
         </Swiper>
@@ -285,26 +232,11 @@ export const HomeContent = ({
         >
           {movieData?.Airing_Today_TV.map((item: Item) => (
             <SwiperSlide key={item.id}>
-              <ListItem
-                key={item.id}
-                item={item}
-                setSelectedID={setSelectedID}
-                setShowPopup={setShowPopup}
-                setMediaType={setMediaType}
-              ></ListItem>
+              <ListItem key={item.id} item={item}></ListItem>
             </SwiperSlide>
           ))}
         </Swiper>
       </section>
-
-      {showPopup && (
-        <PopupDetail
-          selectedID={selectedID}
-          mediaType={mediaType}
-          setSelectedID={setSelectedID}
-          setShowPopup={setShowPopup}
-        ></PopupDetail>
-      )}
     </>
   );
 };

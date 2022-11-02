@@ -3,39 +3,40 @@ import { useStore } from "../store/hooks";
 import { imageResize } from "../utils/constants";
 import { Item } from "../utils/types";
 
-export const ListTopItem = ({ index, item }: { index: number, item: Item }) => {
-  
+export const ListSearchItem = ({
+  item
+}: {
+  item: Item
+}) => {
   const [state, dispatch] = useStore();
 
   const openPopupDetail = () => {
+    let refresh =
+      window.location.protocol +
+      "//" +
+      window.location.host +
+      window.location.pathname +
+      `?id=${item.id}&media_type=${item.media_type}`;
+    window.history.pushState({ path: refresh }, "", refresh);
 
-    const refresh = window.location.protocol + "//" + window.location.host + window.location.pathname + `?id=${item.id}&media_type=${item.media_type}`;
-    window.history.pushState({ path: refresh }, '', refresh);
-
-    document.body.classList.add('overflow-y-hidden');
+    document.body.classList.add("overflow-y-hidden");
 
     const storeItem = {
       selectedID: item.id,
       mediaType: item.media_type,
-      showPopup: true
-    }
-    dispatch(actions.setSelectedMovies(storeItem))
-  }
-  
+      showPopup: true,
+    };
+    dispatch(actions.setSelectedMovies(storeItem));
+  };
+
   return (
-    <div className="swiper-slide flex max-w-[300px] h-210 relative justify-end">
+    <div className="w-[30%] lg:w-[16%] h-170 relative mr-10 mb-70 id_item">
       <img
-        className="w-1 absolute -left-30 list-top-item-number"
-        src={index ? require(`../assets/images/number-${index}.png`) : ""}
-        alt=""
-      />
-      <img
-        className="w-1/2 h-full object-cover relative list-top-item-poster"
+        className="w-full h-full object-cover relative rounded-md"
         src={item.poster_path ? imageResize(item.poster_path, "w300") : ""}
         alt=""
       />
-
-      <div className="id_hover mb-100 w-435 h-411 -mr-80 border-ra rounded-md bg-gray-14 text-white absolute flex flex-col z-30 origin-center transform-none opacity-100 shadow-movie">
+      <div className="id_hover w-435 h-411 border-ra rounded-md bg-gray-14 text-white absolute flex flex-col z-30 origin-center transform-none opacity-100 shadow-movie absolute -top-100 -left-60">
         <div className="w-full h-245">
           <img
             className="w-full h-full object-cover !max-w-full !max-h-full"
@@ -54,9 +55,13 @@ export const ListTopItem = ({ index, item }: { index: number, item: Item }) => {
               </button>
               {/* <div className="flex justify-center items-center pl-2 rounded-full text-white bg-gray-2a w-45 h-45 mr-8 border-solid border-2 border-white cursor-pointer">
                 <i className="fa-regular fa-plus text-xl"></i>
+              </div>
+              <div className="flex justify-center items-center pl-2 rounded-full text-white bg-gray-2a w-45 h-45 mr-8 border-solid border-2 border-white cursor-pointer">
+                <i className="fa-regular fa-thumbs-up text-xl"></i>
               </div> */}
             </div>
-            <div className="flex justify-center items-center pl-1 rounded-full text-white bg-gray-2a w-45 h-45 mr-8 border-solid border-2 border-white cursor-pointer"
+            <div
+              className="flex justify-center items-center pl-1 rounded-full text-white bg-gray-2a w-45 h-45 mr-8 border-solid border-2 border-white cursor-pointer"
               onClick={openPopupDetail}
             >
               <i className="fa fa-chevron-down"></i>

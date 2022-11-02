@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+import { useStore } from "../store/hooks";
 import { getMovieDetails, getTVDetails, getTVSeasons } from "../utils/api";
 import { imageOriginal, imageResize } from "../utils/constants";
 import { Cast, Detail, Episode, Item, Season, VideoTrailer } from "../utils/types";
 import { SimilarItem } from "./ListSimilarItem";
+import { actions } from "../store";
 
 interface MovieProps {
   data: Detail;
@@ -12,22 +14,13 @@ interface MovieProps {
   seasons?: Season[];
 }
 
-export const PopupDetail = ({
-  selectedID,
-  mediaType,
-  setSelectedID,
-  setShowPopup,
-}: {
-  selectedID: string | null | undefined;
-  mediaType: "movie" | "tv" | null | undefined;
-  setSelectedID: any;
-  setShowPopup: any;
-}) => {
+export const PopupDetail = () => {
   const [movies, setMovieData] = useState<MovieProps>();
   const [collapsed, setCollapsed] = useState<boolean>(true);
   const [showSeasons, setShowSeasons] = useState<boolean>(false);
   const [selectedSeason, setSelectedSeason] = useState<number>(0);
   const [runAway, setRunAway] = useState<boolean>(false);
+  const [state, dispatch] = useStore();
 
   useEffect(() => {
     const getMovieData = async (_selectedID: any) => {
@@ -44,20 +37,26 @@ export const PopupDetail = ({
       setMovieData(data);
     };
 
-    if (selectedID && mediaType === "movie") {
-      getMovieData(selectedID);
+    if (state.selectedID && state.mediaType === "movie") {
+      getMovieData(state.selectedID);
     }
 
-    if (selectedID && mediaType === "tv") {
-      getTVData(selectedID);
+    if (state.selectedID && state.mediaType === "tv") {
+      getTVData(state.selectedID);
     }
-  }, [selectedID]);
+  }, [state]);
 
   const closePopupDetail = () => {
     window.history.pushState({}, document.title, "/" + "browse");
 
-    setSelectedID(null);
-    setShowPopup(false);
+    const storeItem = {
+      selectedID: null,
+      mediaType: null,
+      showPopup: false
+    }
+
+    dispatch(actions.setSelectedMovies(storeItem))
+
     document.body.classList.remove("overflow-y-hidden");
   };
 
@@ -111,7 +110,7 @@ export const PopupDetail = ({
         <div className="w-full h-auto px-15 lg:px-50 py-15 flex">
           <div className="w-full lg:w-2/3 text-gray-e5">
             <div className="font-semibold text-2xl lg:text-3xl mb-20">
-              {mediaType === "movie" ? movies?.data?.title : movies?.data?.name}
+              {state.mediaType === "movie" ? movies?.data?.title : movies?.data?.name}
             </div>
 
             <div className="font-thin text-sm leading-5 text-gray-d2">
@@ -281,7 +280,7 @@ export const PopupDetail = ({
           <div className="text-gray-e5 text-xl lg:text-2xl mb-20 font-medium">
             Giới thiệu về{" "}
             <span className="font-semibold">
-              {mediaType === "movie" ? movies?.data?.title : movies?.data?.name}
+              {state.mediaType === "movie" ? movies?.data?.title : movies?.data?.name}
             </span>
           </div>
           <div className="text-xs lg:text-sm leading-5">

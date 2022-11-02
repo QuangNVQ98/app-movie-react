@@ -3,8 +3,7 @@ import { SET_SELECTED_MOVIES } from "./constants";
 const initState = {
   selectedID: null,
   mediaType: null,
-  setSelectedID: null,
-  setShowPopup: null,
+  showPopup: null
 };
 
 const reducer = (state: any, action: any) => {
@@ -12,7 +11,9 @@ const reducer = (state: any, action: any) => {
     case SET_SELECTED_MOVIES: 
       return {
         ...state,
-        
+        selectedID: action.payload.selectedID,
+        mediaType: action.payload.mediaType,
+        showPopup: action.payload.showPopup,
       }
     default: 
       throw new Error('')

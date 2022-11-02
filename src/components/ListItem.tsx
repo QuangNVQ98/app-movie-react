@@ -1,17 +1,33 @@
+import { actions } from "../store";
+import { useStore } from "../store/hooks";
 import { imageResize } from "../utils/constants";
 import { Item } from "../utils/types";
 
-export const ListItem = ({ item, setSelectedID, setShowPopup, setMediaType }: { item: Item, setSelectedID: any, setShowPopup: any, setMediaType: any }) => {
-  
-  const openPopupDetail = () => {
-    let refresh = window.location.protocol + "//" + window.location.host + window.location.pathname + `?id=${item.id}&media_type=${item.media_type}`;
-    window.history.pushState({ path: refresh }, '', refresh);
+export const ListItem = ({
+  item
+}: {
+  item: Item
+}) => {
+  const [state, dispatch] = useStore();
 
-    setSelectedID(item.id);
-    setMediaType(item.media_type);
-    setShowPopup(true);
-    document.body.classList.add('overflow-y-hidden');
-  }
+  const openPopupDetail = () => {
+    let refresh =
+      window.location.protocol +
+      "//" +
+      window.location.host +
+      window.location.pathname +
+      `?id=${item.id}&media_type=${item.media_type}`;
+    window.history.pushState({ path: refresh }, "", refresh);
+
+    document.body.classList.add("overflow-y-hidden");
+
+    const storeItem = {
+      selectedID: item.id,
+      mediaType: item.media_type,
+      showPopup: true,
+    };
+    dispatch(actions.setSelectedMovies(storeItem));
+  };
 
   return (
     <div className="swiper-slide flex max-w-[300px] h-170 relative justify-center items-center id_item">
@@ -44,8 +60,10 @@ export const ListItem = ({ item, setSelectedID, setShowPopup, setMediaType }: { 
                 <i className="fa-regular fa-thumbs-up text-xl"></i>
               </div> */}
             </div>
-            <div className="flex justify-center items-center pl-1 rounded-full text-white bg-gray-2a w-45 h-45 mr-8 border-solid border-2 border-white cursor-pointer"
-              onClick={openPopupDetail}>
+            <div
+              className="flex justify-center items-center pl-1 rounded-full text-white bg-gray-2a w-45 h-45 mr-8 border-solid border-2 border-white cursor-pointer"
+              onClick={openPopupDetail}
+            >
               <i className="fa fa-chevron-down"></i>
             </div>
           </div>

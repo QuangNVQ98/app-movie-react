@@ -1,7 +1,30 @@
-import { imageOriginal } from "../utils/constants";
+import { actions } from "../store";
+import { useStore } from "../store/hooks";
+import { imageOriginal, imageResize } from "../utils/constants";
 import { Item } from "../utils/types";
 
 export const Banner = ({ movie }: { movie: Item | null | undefined }) => {
+  const [state, dispatch] = useStore();
+
+  const openPopupDetail = () => {
+    let refresh =
+      window.location.protocol +
+      "//" +
+      window.location.host +
+      window.location.pathname +
+      `?id=${movie?.id}&media_type=${movie?.media_type}`;
+    window.history.pushState({ path: refresh }, "", refresh);
+
+    document.body.classList.add("overflow-y-hidden");
+
+    const storeItem = {
+      selectedID: movie?.id,
+      mediaType: movie?.media_type,
+      showPopup: true,
+    };
+    dispatch(actions.setSelectedMovies(storeItem));
+  };
+
   return (
     <section className="w-full h-auto">
       <div className="w-full h-screen relative">
@@ -28,18 +51,25 @@ export const Banner = ({ movie }: { movie: Item | null | undefined }) => {
                   <span className="ml-10">Watch</span>
                 </div>
 
-                <div className="flex justify-center items-center rounded-md text-primary bg-gray-6d w-auto h-auto px-15 py-5 lg:px-35 lg:py-10 cursor-pointer ml-10">
+                <div
+                  className="flex justify-center items-center rounded-md text-primary bg-gray-6d w-auto h-auto px-15 py-5 lg:px-35 lg:py-10 cursor-pointer ml-10"
+                  onClick={openPopupDetail}
+                >
                   <i className="fa fa-circle-info"></i>
                   <span className="ml-10">View Info</span>
                 </div>
               </div>
             </div>
           </div>
-          {/* <div className="basis-1/2 flex items-center justify-center"> */}
-          {/* <!-- <div className="w-320 h-470">
-            <img className="w-full h-full object-cover rounded-3xl" src="../assets/images/sub-banner.jpg" alt=""/>
-          </div> --> */}
-          {/* </div> */}
+          {/* <div className="basis-1/2 flex items-center justify-center">
+            <div className="w-[350px] h-[500px]">
+              <img
+                className="w-full h-full object-cover rounded-3xl"
+                src={movie?.poster_path ? imageResize(movie?.poster_path, "w300") : ''}
+                alt=""
+              />
+            </div>
+          </div> */}
         </div>
       </div>
     </section>
