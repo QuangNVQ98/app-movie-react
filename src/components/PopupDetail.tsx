@@ -21,6 +21,7 @@ export const PopupDetail = () => {
   const [selectedSeason, setSelectedSeason] = useState<number>(0);
   const [runAway, setRunAway] = useState<boolean>(false);
   const [state, dispatch] = useStore();
+  console.log('state: ', state)
 
   useEffect(() => {
     const getMovieData = async (_selectedID: any) => {

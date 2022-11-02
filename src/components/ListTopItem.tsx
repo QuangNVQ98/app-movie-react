@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { actions } from "../store";
 import { useStore } from "../store/hooks";
 import { imageResize } from "../utils/constants";
@@ -6,6 +7,7 @@ import { Item } from "../utils/types";
 export const ListTopItem = ({ index, item }: { index: number, item: Item }) => {
   
   const [state, dispatch] = useStore();
+  const navigate = useNavigate();
 
   const openPopupDetail = () => {
 
@@ -20,6 +22,17 @@ export const ListTopItem = ({ index, item }: { index: number, item: Item }) => {
       showPopup: true
     }
     dispatch(actions.setSelectedMovies(storeItem))
+  }
+
+  const watchMovie = () => {
+    const storeItem = {
+      selectedID: item.id,
+      mediaType: item.media_type,
+    }
+
+    dispatch(actions.setWatchMovies(storeItem))
+    navigate('/watch')
+
   }
   
   return (
@@ -46,7 +59,7 @@ export const ListTopItem = ({ index, item }: { index: number, item: Item }) => {
         <div className="w-full h-full p-15">
           <div className="w-full h-auto flex flex-row justify-between mb-20">
             <div className="flex">
-              <button className="learn-more">
+              <button className="learn-more" onClick={watchMovie}>
                 <span className="circle" aria-hidden="true">
                   <span className="icon arrow"></span>
                 </span>

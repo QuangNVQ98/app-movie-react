@@ -1,6 +1,6 @@
 import Context from "./Context"
 import { useReducer } from "react"
-import reducer, { initState } from "./Reducer";
+import reducer, { initState } from "./reducer";
 
 function Provider({children}: {children: any}) {
 
