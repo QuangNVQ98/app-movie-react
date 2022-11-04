@@ -2,26 +2,20 @@ import { useEffect, useState } from "react";
 import { useStore } from "../store/hooks";
 import { getMovieDetails, getTVDetails, getTVSeasons } from "../utils/api";
 import { imageOriginal, imageResize } from "../utils/constants";
-import { Cast, Detail, Episode, Item, Season, VideoTrailer } from "../utils/types";
+import { Cast, Detail, Episode, Item, MovieProps, Season, VideoTrailer } from "../utils/types";
 import { SimilarItem } from "./ListSimilarItem";
 import { actions } from "../store";
-
-interface MovieProps {
-  data: Detail;
-  casts: Cast[];
-  similar: Item[];
-  videos: VideoTrailer[];
-  seasons?: Season[];
-}
+import { createSearchParams, useNavigate } from "react-router-dom";
 
 export const PopupDetail = () => {
   const [movies, setMovieData] = useState<MovieProps>();
   const [collapsed, setCollapsed] = useState<boolean>(true);
   const [showSeasons, setShowSeasons] = useState<boolean>(false);
-  const [selectedSeason, setSelectedSeason] = useState<number>(0);
+  const [selectedSeason, setSelectedSeason] = useState<number>(1);
   const [runAway, setRunAway] = useState<boolean>(false);
+  const [showAllSeason, setShowAllSeason] = useState<boolean>(false);
   const [state, dispatch] = useStore();
-  console.log('state: ', state)
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getMovieData = async (_selectedID: any) => {
@@ -70,6 +64,7 @@ export const PopupDetail = () => {
   };
 
   const chooseSeason = (season: number) => {
+    console.log('season: ', season)
     setSelectedSeason(season);
     setShowSeasons(false);
   }
@@ -78,6 +73,32 @@ export const PopupDetail = () => {
     e.preventDefault();
     setRunAway(!runAway);
   };
+
+  const watchMovie = () => {
+    navigate({
+      pathname: "/watch",
+      search: createSearchParams({
+          id: String(state?.selectedID),
+          mediaType: state?.mediaType
+      }).toString()
+    });
+  }
+
+  const goToWatchEpisode = (item: Episode) => {
+    navigate({
+      pathname: "/watch",
+      search: createSearchParams({
+          id: String(state?.selectedID),
+          mediaType: state?.mediaType,
+          season: (item.season_number === 0) ? String(item.season_number + 1) : String(item.season_number),
+          episode: String(item.episode_number)
+      }).toString()
+    });
+  }
+
+  const doShowAllSeason = () => {
+    setShowAllSeason(true);
+  }
 
   return (
     <div className="z-[101] w-full min-h-screen h-full bg-black-05 z-50 overflow-y-scroll fixed top-[50%] left-[50%] !-translate-x-1/2 !-translate-y-1/2 ">
@@ -95,7 +116,7 @@ export const PopupDetail = () => {
             alt=""
           />
           <div className="flex absolute w-auto h-auto left-50 bottom-60 z-50">
-            <div className="flex justify-center items-center py-8 px-30 rounded-md text-black bg-gray-e6 w-auto h-45 mr-10 cursor-pointer">
+            <div onClick={watchMovie} className="flex justify-center items-center py-8 px-30 rounded-md text-black bg-gray-e6 w-auto h-45 mr-10 cursor-pointer">
               <span className="mr-10 text-xl font-medium">Watch</span>
               <i className="fa-solid fa-play text-xl"></i>
             </div>
@@ -161,7 +182,7 @@ export const PopupDetail = () => {
                   onClick={toggleSeasonsDropdown}
                 >
                   <span className="mr-26">
-                    Season {movies.seasons[selectedSeason].season_number + 1}
+                    Season {movies.seasons[selectedSeason-1].season_number}
                   </span>
                   <span>
                     <i
@@ -180,7 +201,7 @@ export const PopupDetail = () => {
                   {movies?.seasons.map((item: Season, index: number) => (
                     <div key={index} className="mb-8 flex items-center px-15 py-10 hover:bg-gray-42" onClick={() => chooseSeason(item.season_number)}>
                       <span className="text-base font-medium mr-10">
-                        Season {item.season_number + 1}
+                        Season {item.season_number}
                       </span>
                       <span className="text-xs">
                         ({item.episodes.length} episodes)
@@ -189,7 +210,7 @@ export const PopupDetail = () => {
                   ))}
 
                   <div className="mb-8 border border-gray-4d mx-10"></div>
-                  <div className="text-base font-semibold text-center px-15 py-10 hover:bg-gray-42">
+                  <div onClick={doShowAllSeason} className="text-base font-semibold text-center px-15 py-10 hover:bg-gray-42">
                     Show all episodes
                   </div>
                 </div>
@@ -197,8 +218,17 @@ export const PopupDetail = () => {
             </div>
 
             <div className="w-full mt-10">
-              {movies?.seasons[selectedSeason].episodes.map((item: Episode, index: number) => (
-                <div key={index} className="w-full h-170 px-30 py-15 border-t border-gray-40 flex items-center cursor-pointer">
+              
+              {/* {
+                showAllSeason && movies?.seasons.map((se: Season) => {
+
+                }
+                )
+
+              } */}
+              
+              { movies?.seasons[selectedSeason].episodes.map((item: Episode, index: number) => (
+                <div onClick={() => goToWatchEpisode(item)} key={index} className="w-full h-170 px-30 py-15 border-t border-gray-40 flex items-center cursor-pointer">
                   <div className="text-gray-d2 text-2xl w-[5%]">{item.episode_number}</div>
 
                   <img
@@ -217,6 +247,7 @@ export const PopupDetail = () => {
                   </div>
                 </div>
               ))}
+
             </div>
           </div>
         )}

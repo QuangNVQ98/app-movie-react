@@ -1,3 +1,4 @@
+import { createSearchParams, useNavigate } from "react-router-dom";
 import { actions } from "../store";
 import { useStore } from "../store/hooks";
 import { imageResize } from "../utils/constants";
@@ -8,6 +9,7 @@ export const ListItem = ({
 }: {
   item: Item
 }) => {
+  const navigate = useNavigate();
   const [state, dispatch] = useStore();
 
   const openPopupDetail = () => {
@@ -29,6 +31,16 @@ export const ListItem = ({
     dispatch(actions.setSelectedMovies(storeItem));
   };
 
+  const watchMovie = () => {
+    navigate({
+      pathname: "/watch",
+      search: createSearchParams({
+          id: String(item.id),
+          mediaType: item.media_type
+      }).toString()
+    });
+  }
+
   return (
     <div className="swiper-slide flex max-w-[300px] h-170 relative justify-center items-center id_item">
       <img
@@ -47,7 +59,7 @@ export const ListItem = ({
         <div className="w-full h-full p-15">
           <div className="w-full h-auto flex flex-row justify-between mb-20">
             <div className="flex">
-              <button className="learn-more">
+              <button className="learn-more" onClick={watchMovie}>
                 <span className="circle" aria-hidden="true">
                   <span className="icon arrow"></span>
                 </span>

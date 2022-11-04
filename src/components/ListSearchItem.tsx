@@ -1,3 +1,4 @@
+import { createSearchParams, useNavigate } from "react-router-dom";
 import { actions } from "../store";
 import { useStore } from "../store/hooks";
 import { imageResize } from "../utils/constants";
@@ -8,6 +9,7 @@ export const ListSearchItem = ({
 }: {
   item: Item
 }) => {
+  const navigate = useNavigate();
   const [state, dispatch] = useStore();
 
   const openPopupDetail = () => {
@@ -29,6 +31,16 @@ export const ListSearchItem = ({
     dispatch(actions.setSelectedMovies(storeItem));
   };
 
+  const watchMovie = () => {
+    navigate({
+      pathname: "/watch",
+      search: createSearchParams({
+          id: String(item.id),
+          mediaType: item.media_type
+      }).toString()
+    });
+  }
+
   return (
     <div className="w-[30%] lg:w-[16%] h-170 relative mr-10 mb-70 id_item">
       <img
@@ -47,7 +59,7 @@ export const ListSearchItem = ({
         <div className="w-full h-full p-15">
           <div className="w-full h-auto flex flex-row justify-between mb-20">
             <div className="flex">
-              <button className="learn-more">
+              <button className="learn-more" onClick={watchMovie}>
                 <span className="circle" aria-hidden="true">
                   <span className="icon arrow"></span>
                 </span>

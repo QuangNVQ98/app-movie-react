@@ -1,10 +1,10 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useSearchParams } from "react-router-dom";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { PopupDetail } from "../components/PopupDetail";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useStore } from "../store/hooks";
-
+import { actions } from "../store";
 
 export const BrowseLayout = () => {
 
@@ -15,6 +15,23 @@ export const BrowseLayout = () => {
   >();
 
   const [state, dispatch] = useStore();
+
+  const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    const params = Object.fromEntries(searchParams);
+
+    if(params?.id) {
+      const storeItem = {
+        selectedID: params?.id,
+        mediaType: params?.media_type,
+        showPopup: true
+      }
+      dispatch(actions.setSelectedMovies(storeItem))
+    }
+
+  }, [searchParams]);
+
 
   return (
     <>

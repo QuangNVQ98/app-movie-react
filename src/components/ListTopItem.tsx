@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { createSearchParams, useNavigate } from "react-router-dom";
 import { actions } from "../store";
 import { useStore } from "../store/hooks";
 import { imageResize } from "../utils/constants";
@@ -25,14 +25,13 @@ export const ListTopItem = ({ index, item }: { index: number, item: Item }) => {
   }
 
   const watchMovie = () => {
-    const storeItem = {
-      selectedID: item.id,
-      mediaType: item.media_type,
-    }
-
-    dispatch(actions.setWatchMovies(storeItem))
-    navigate('/watch')
-
+    navigate({
+      pathname: "/watch",
+      search: createSearchParams({
+          id: String(item.id),
+          mediaType: item.media_type
+      }).toString()
+    });
   }
   
   return (

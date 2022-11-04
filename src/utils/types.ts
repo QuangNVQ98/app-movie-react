@@ -102,6 +102,7 @@ export interface Episode {
   still_path: string;
   vote_average: number;
   vote_count: number;
+  season_number: number
 }
 
 export interface Cast {
@@ -121,4 +122,12 @@ export interface SearchResult {
   total_pages: number;
   total_results: number;
   results: Item[];
+}
+
+export interface MovieProps {
+  data: Detail;
+  casts: Cast[];
+  similar: Item[];
+  videos: VideoTrailer[];
+  seasons?: Season[];
 }
