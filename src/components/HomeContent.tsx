@@ -100,7 +100,7 @@ export const HomeContent = ({
 
       <section className="mb-25 lg:mb-60 w-full h-auto">
         <div className="w-full">
-          <p className="text-gray-e5 px-15 lg:px-58 text-lg lg:text-2xl font-medium lg:font-semibold mb-20 mt-20">
+          <p className="text-gray-e5 px-15 lg:px-58 text-lg lg:text-2xl font-medium lg:font-semibold mb-20 xl:mb-35 2xl:mb-20 mt-20">
             Top 10 most trending TV Show today
           </p>
           <Swiper
