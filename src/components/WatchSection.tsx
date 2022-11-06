@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { getTVSeasons } from "../utils/api";
 import { embedEpisode, embedMovie } from "../utils/constants";
 
@@ -13,7 +13,8 @@ interface SearchParamsProp {
 export const WatchSection = () => {
   const [searchParams] = useSearchParams();
   const [data, setData] = useState<SearchParamsProp | null | undefined>(null);
-
+  const navigate = useNavigate();
+  
   useEffect(() => {
     const params = Object.fromEntries(searchParams);
    
@@ -44,13 +45,14 @@ export const WatchSection = () => {
       episode: _episode,
     };
 
-    console.log("storeData: ", storeData);
-
     setData(storeData);
   }, [searchParams]);
 
   return (
     <div className="w-full h-full">
+      <span onClick={() => navigate(-1)} className="absolute top-15 right-25 z-10 text-3xl text-white cursor-pointer">
+        <i className="fa fa-left-long"></i>
+      </span>
       <iframe
         className="absolute top-0 left-0 w-full h-full"
         src={

@@ -12,20 +12,32 @@ import { BrowseLayout } from "./layout/Browse";
 import { getHomeData } from "./utils/api";
 import { randomNumber } from "./utils/helper/random-number.helper";
 import { CategoryMovie, Item } from "./utils/types";
+import { actions } from "./store";
+import { useStore } from "./store/hooks";
 
 const App: React.FC = () => {
   const [movieData, setmovieData] = useState<
     Record<CategoryMovie, Item[]> | null | undefined
   >();
   const [main, setMain] = useState<Item>();
+  const [state, dispatch] = useStore();
+
 
   useEffect(() => {
     const init = async () => {
+      // dispatch(actions.setLoading({
+      //   ...state,
+      //   loading: true
+      // }))
       const data = await getHomeData();
       setmovieData(data);
       const trending = data["Trending_Movies"];
 
       setMain(trending[randomNumber(10, trending.length - 1)]);
+      // dispatch(actions.setLoading({
+      //   ...state,
+      //   loading: false
+      // }))
     };
 
     init();

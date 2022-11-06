@@ -14,9 +14,7 @@ export const SearchSection = () => {
     setKeyword(currentParams["q"]);
 
     const getSearchMovies = async (_keyword: any) => {
-      console.log("_keyword: ", _keyword);
       const res: any = await search(_keyword);
-      console.log("resSearch: ", res);
       setDatas(res["results"]);
     };
 

@@ -1,1 +1,2 @@
 export const SET_SELECTED_MOVIES = 'SET_SELECTED_MOVIES'
+export const SET_LOADING = 'SET_LOADING'

@@ -1,58 +1,56 @@
-import * as React from "react";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import * as React from "react"
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 export const Header: React.FC = () => {
-
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   // const [searchValue, setSearchValue] = useState<string>();
 
   const searchMovie = (data: any) => {
-    console.log('data: ', data)
-    if(data.trim() === '') {
-      navigate('/browse')
-    }else {
+    if (data.trim() === "") {
+      navigate("/browse")
+    } else {
       navigate(`/browse/search?q=${encodeURI(data.trim())}`)
     }
-  };
+  }
 
   const debounce = (fn: any, delay: number) => {
     return (args: any) => {
-      clearTimeout(fn.id);
+      clearTimeout(fn.id)
 
       fn.id = setTimeout(() => {
-        fn.call(this, args);
-      }, delay);
-    };
-  };
+        fn.call(this, args)
+      }, delay)
+    }
+  }
 
-  const debounceAjax = debounce(searchMovie, 1000);
+  const debounceAjax = debounce(searchMovie, 1000)
 
   const handleKeyupSearchMovie = (e: any) => {
-    debounceAjax(e.target.value);
+    debounceAjax(e.target.value)
     // setSearchValue(e.target.value)
-  };
+  }
 
-  const handleKeyDownSearchMovie = (e:any) => {
-    if (e.key === 'Enter') {
-      const data = e.target.value;
-      if(data.trim() === '') {
-        navigate('/browse')
-      }else {
+  const handleKeyDownSearchMovie = (e: any) => {
+    if (e.key === "Enter") {
+      const data = e.target.value
+      if (data.trim() === "") {
+        navigate("/browse")
+      } else {
         navigate(`/browse/search?q=${encodeURI(data.trim())}`)
       }
     }
   }
 
   const getCheckBoxSearchValue = (e: any) => {
-    if(!e.target.checked) {
+    if (!e.target.checked) {
       // setSearchValue('');
-      navigate('/browse')
+      navigate("/browse")
     }
   }
 
   const goToHomePage = () => {
-    navigate('/browse')
+    navigate("/browse")
   }
 
   return (
@@ -79,17 +77,23 @@ export const Header: React.FC = () => {
             onClick={goToHomePage}
           />
         </div>
-        <div className="hidden grow pl-45 lg:flex flex-row text-primary">
-          <div className="mr-20">Trang chủ</div>
-          <div className="mr-20">Mới & Phổ biến</div>
-          <div className="mr-20">Danh sách của tôi</div>
+        <div className="hidden grow pl-45 lg:flex flex-row text-gray-d2">
+          <div className="mr-20">Welcome to LetFlix</div>
+          <div className="mr-20">
+            <i className="fa fa-face-smile"></i>
+          </div>
+          <div className="mr-20">Hope you enjoyed</div>
         </div>
         <div className="ml-auto lg:ml-0 flex-none relative w-[300px] sm:w-355">
           {/* <i className="fa-solid fa-search ml-26 text-xl text-primary"></i>
           <i className="fa-solid fa-bell ml-26 text-xl text-primary"></i> */}
           <div className="search">
             <div className="search_bar">
-              <input id="searchOne" type="checkbox" onClick={getCheckBoxSearchValue} />
+              <input
+                id="searchOne"
+                type="checkbox"
+                onClick={getCheckBoxSearchValue}
+              />
               <label htmlFor="searchOne">
                 <i className="icon ion-android-search fa-solid fa-search text-2xl"></i>
                 <i className="last icon ion-android-close fa-solid fa-xmark text-xl !mt-2"></i>
@@ -108,5 +112,5 @@ export const Header: React.FC = () => {
         </div>
       </div>
     </header>
-  );
-};
+  )
+}

@@ -8,14 +8,7 @@ import { actions } from "../store";
 
 export const BrowseLayout = () => {
 
-  const [showPopup, setShowPopup] = useState<boolean>(false);
-  const [selectedID, setSelectedID] = useState<string | null | undefined>();
-  const [mediaType, setMediaType] = useState<
-    "movie" | "tv" | null | undefined
-  >();
-
   const [state, dispatch] = useStore();
-
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
@@ -44,6 +37,13 @@ export const BrowseLayout = () => {
       )}
 
       <Footer></Footer>
+      
+      { state.loading &&
+        <div className="w-full h-full fixed flex justify-center items-center text-7xl top-0 text-gray-d2 bg-black-02 z-[999]">
+          <i className="fa fa-spinner"></i>
+        </div>
+      }
+
     </>
   );
 };

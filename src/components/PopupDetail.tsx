@@ -6,6 +6,8 @@ import { Cast, Detail, Episode, Item, MovieProps, Season, VideoTrailer } from ".
 import { SimilarItem } from "./ListSimilarItem";
 import { actions } from "../store";
 import { createSearchParams, useNavigate } from "react-router-dom";
+import React from "react";
+import { Fragment } from "react";
 
 export const PopupDetail = () => {
   const [movies, setMovieData] = useState<MovieProps>();
@@ -41,8 +43,6 @@ export const PopupDetail = () => {
         })
       }
       data.seasons = seasonsData;
-      console.log("dataTV: ", data);
-
       setMovieData(data);
     };
 
@@ -78,7 +78,6 @@ export const PopupDetail = () => {
   };
 
   const chooseSeason = (season: number) => {
-    console.log('season: ', season)
     setSelectedSeason(season);
     setShowSeasons(false);
   }
@@ -99,7 +98,6 @@ export const PopupDetail = () => {
   }
 
   const goToWatchEpisode = (item: Episode) => {
-    console.log('item: ', item)
     navigate({
       pathname: "/watch",
       search: createSearchParams({
@@ -318,10 +316,10 @@ export const PopupDetail = () => {
                 }
               ></i>
             </div>
-          </div>
+          </div>tail
         </div>
 
-        {/* {movies && (
+        {movies && (
           <div className="w-full h-auto px-15 lg:px-50 py-15 text-gray-e5">
             <div className="text-gray-e5 text-xl mb-20 font-medium">
               Trailer & Others
@@ -330,7 +328,7 @@ export const PopupDetail = () => {
               {movies?.videos.length > 0 &&
                 movies?.videos.slice(0, 5).map((item) => (
                   <Fragment key={item.key}>
-                    <div className="w-[47%] lg:w-[31%] h-auto bg-gray-2f rounded-md mb-20 mr-15">
+                    <div className="w-[43%] sm:w-[31%] h-auto bg-gray-2f rounded-md mb-20 mr-15">
                       <div
                         className="relative h-0 w-full"
                         style={{ paddingBottom: "56.25%" }}
@@ -349,7 +347,7 @@ export const PopupDetail = () => {
                 ))}
             </div>
           </div>
-        )} */}
+        )}
 
         <div className="w-full h-auto px-15 lg:px-50 py-15 text-gray-e5">
           <div className="text-gray-e5 text-xl lg:text-2xl mb-20 font-medium">

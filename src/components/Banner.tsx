@@ -1,3 +1,4 @@
+import { createSearchParams, useNavigate } from "react-router-dom";
 import { actions } from "../store";
 import { useStore } from "../store/hooks";
 import { imageOriginal, imageResize } from "../utils/constants";
@@ -5,6 +6,7 @@ import { Item } from "../utils/types";
 
 export const Banner = ({ movie }: { movie: Item | null | undefined }) => {
   const [state, dispatch] = useStore();
+  const navigate = useNavigate();
 
   const openPopupDetail = () => {
     let refresh =
@@ -24,6 +26,16 @@ export const Banner = ({ movie }: { movie: Item | null | undefined }) => {
     };
     dispatch(actions.setSelectedMovies(storeItem));
   };
+
+  const watchMovie = (movie: Item | null | undefined) => {
+    navigate({
+      pathname: "/watch",
+      search: createSearchParams({
+          id: String(movie?.id),
+          mediaType: 'movie'
+      }).toString()
+    });
+  }
 
   return (
     <section className="w-full h-auto">
@@ -46,7 +58,7 @@ export const Banner = ({ movie }: { movie: Item | null | undefined }) => {
                 {movie?.overview}
               </span>
               <div className="flex mt-26 text-lg">
-                <div className="flex justify-center items-center rounded-md text-black bg-gray-e6 w-auto h-auto px-15 py-5 lg:px-35 lg:py-10 mr-4 lg:mr-8 cursor-pointer">
+                <div onClick={() => watchMovie(movie)} className="flex justify-center items-center rounded-md text-black bg-gray-e6 w-auto h-auto px-15 py-5 lg:px-35 lg:py-10 mr-4 lg:mr-8 cursor-pointer">
                   <i className="fa-solid fa-play text-xl"></i>
                   <span className="ml-10">Watch</span>
                 </div>
