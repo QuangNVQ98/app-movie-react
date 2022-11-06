@@ -84,7 +84,7 @@ export const Header: React.FC = () => {
           <div className="mr-20">Mới & Phổ biến</div>
           <div className="mr-20">Danh sách của tôi</div>
         </div>
-        <div className="ml-auto lg:ml-0 flex-none relative w-355">
+        <div className="ml-auto lg:ml-0 flex-none relative w-[300px] sm:w-355">
           {/* <i className="fa-solid fa-search ml-26 text-xl text-primary"></i>
           <i className="fa-solid fa-bell ml-26 text-xl text-primary"></i> */}
           <div className="search">

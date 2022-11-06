@@ -26,6 +26,23 @@ export const HomeContent = ({
             spaceBetween={15}
             loop={false}
             navigation
+            breakpoints={{
+              300: {
+                slidesPerView:2,
+                slidesPerGroup:2,
+                spaceBetween:10
+              },
+              768: {
+                slidesPerView:3,
+                slidesPerGroup:3,
+                spaceBetween:15
+              },
+              1300: {
+                slidesPerView:6,
+                slidesPerGroup:6,
+                spaceBetween:15
+              },
+            }}
           >
             {movieData?.Trending_Movies.slice(0, 10).map(
               (item: Item, index: number) => (
@@ -55,6 +72,23 @@ export const HomeContent = ({
           spaceBetween={5}
           loop
           navigation
+          breakpoints={{
+            300: {
+              slidesPerView:4,
+              slidesPerGroup:4,
+              spaceBetween:5
+            },
+            768: {
+              slidesPerView:5,
+              slidesPerGroup:5,
+              spaceBetween:5
+            },
+            1300: {
+              slidesPerView:6,
+              slidesPerGroup:6,
+              spaceBetween:5
+            },
+          }}
         >
           {movieData?.Trending_Movies.map((item: Item) => (
             <SwiperSlide key={item.id}>
@@ -75,6 +109,23 @@ export const HomeContent = ({
             spaceBetween={15}
             loop={false}
             navigation
+            breakpoints={{
+              300: {
+                slidesPerView:2,
+                slidesPerGroup:2,
+                spaceBetween:10
+              },
+              768: {
+                slidesPerView:3,
+                slidesPerGroup:3,
+                spaceBetween:15
+              },
+              1300: {
+                slidesPerView:6,
+                slidesPerGroup:6,
+                spaceBetween:15
+              },
+            }}
           >
             {movieData?.Trending_TV.slice(0, 10).map(
               (item: Item, index: number) => (
@@ -103,6 +154,23 @@ export const HomeContent = ({
           spaceBetween={5}
           loop
           navigation
+          breakpoints={{
+            300: {
+              slidesPerView:4,
+              slidesPerGroup:4,
+              spaceBetween:5
+            },
+            768: {
+              slidesPerView:5,
+              slidesPerGroup:5,
+              spaceBetween:5
+            },
+            1300: {
+              slidesPerView:6,
+              slidesPerGroup:6,
+              spaceBetween:5
+            },
+          }}
         >
           {movieData?.Popular_TV.map((item: Item) => (
             <SwiperSlide key={item.id}>
@@ -124,6 +192,23 @@ export const HomeContent = ({
           spaceBetween={5}
           loop
           navigation
+          breakpoints={{
+            300: {
+              slidesPerView:4,
+              slidesPerGroup:4,
+              spaceBetween:5
+            },
+            768: {
+              slidesPerView:5,
+              slidesPerGroup:5,
+              spaceBetween:5
+            },
+            1300: {
+              slidesPerView:6,
+              slidesPerGroup:6,
+              spaceBetween:5
+            },
+          }}
         >
           {movieData?.Top_Rated_Movies.map((item: Item) => (
             <SwiperSlide key={item.id}>
@@ -145,6 +230,23 @@ export const HomeContent = ({
           spaceBetween={5}
           loop
           navigation
+          breakpoints={{
+            300: {
+              slidesPerView:4,
+              slidesPerGroup:4,
+              spaceBetween:5
+            },
+            768: {
+              slidesPerView:5,
+              slidesPerGroup:5,
+              spaceBetween:5
+            },
+            1300: {
+              slidesPerView:6,
+              slidesPerGroup:6,
+              spaceBetween:5
+            },
+          }}
         >
           {movieData?.Top_Rated_TV.map((item: Item) => (
             <SwiperSlide key={item.id}>
@@ -166,6 +268,23 @@ export const HomeContent = ({
           spaceBetween={5}
           loop
           navigation
+          breakpoints={{
+            300: {
+              slidesPerView:4,
+              slidesPerGroup:4,
+              spaceBetween:5
+            },
+            768: {
+              slidesPerView:5,
+              slidesPerGroup:5,
+              spaceBetween:5
+            },
+            1300: {
+              slidesPerView:6,
+              slidesPerGroup:6,
+              spaceBetween:5
+            },
+          }}
         >
           {movieData?.Now_Playing_Movies.map((item: Item) => (
             <SwiperSlide key={item.id}>
@@ -187,6 +306,23 @@ export const HomeContent = ({
           spaceBetween={5}
           loop
           navigation
+          breakpoints={{
+            300: {
+              slidesPerView:4,
+              slidesPerGroup:4,
+              spaceBetween:5
+            },
+            768: {
+              slidesPerView:5,
+              slidesPerGroup:5,
+              spaceBetween:5
+            },
+            1300: {
+              slidesPerView:6,
+              slidesPerGroup:6,
+              spaceBetween:5
+            },
+          }}
         >
           {movieData?.Upcoming_Movies.map((item: Item) => (
             <SwiperSlide key={item.id}>
@@ -208,6 +344,23 @@ export const HomeContent = ({
           spaceBetween={5}
           loop
           navigation
+          breakpoints={{
+            300: {
+              slidesPerView:4,
+              slidesPerGroup:4,
+              spaceBetween:5
+            },
+            768: {
+              slidesPerView:5,
+              slidesPerGroup:5,
+              spaceBetween:5
+            },
+            1300: {
+              slidesPerView:6,
+              slidesPerGroup:6,
+              spaceBetween:5
+            },
+          }}
         >
           {movieData?.On_The_Air_TV.map((item: Item) => (
             <SwiperSlide key={item.id}>
@@ -229,6 +382,23 @@ export const HomeContent = ({
           spaceBetween={5}
           loop
           navigation
+          breakpoints={{
+            300: {
+              slidesPerView:4,
+              slidesPerGroup:4,
+              spaceBetween:5
+            },
+            768: {
+              slidesPerView:5,
+              slidesPerGroup:5,
+              spaceBetween:5
+            },
+            1300: {
+              slidesPerView:6,
+              slidesPerGroup:6,
+              spaceBetween:5
+            },
+          }}
         >
           {movieData?.Airing_Today_TV.map((item: Item) => (
             <SwiperSlide key={item.id}>

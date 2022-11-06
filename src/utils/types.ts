@@ -92,6 +92,7 @@ export interface Season {
   poster_path: string;
   season_number: number;
   air_date: string;
+  id: number;
 }
 
 export interface Episode {
@@ -102,7 +103,8 @@ export interface Episode {
   still_path: string;
   vote_average: number;
   vote_count: number;
-  season_number: number
+  season_number: number;
+  id: number;
 }
 
 export interface Cast {

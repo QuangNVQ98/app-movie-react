@@ -42,7 +42,7 @@ export const ListSearchItem = ({
   }
 
   return (
-    <div className="w-[30%] lg:w-[16%] h-170 relative mr-10 mb-70 id_item">
+    <div className="w-[30%] lg:w-[16%] h-170 relative mr-10 mb-70 id_item hover:cursor-pointer" onClick={openPopupDetail}>
       <img
         className="w-full h-full object-cover relative rounded-md"
         src={item.poster_path ? imageResize(item.poster_path, "w300") : ""}

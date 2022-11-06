@@ -42,7 +42,7 @@ export const Banner = ({ movie }: { movie: Item | null | undefined }) => {
               <h1 className="text-4xl font-semibold lg:text-6xl mb-20">
                 {movie?.title}
               </h1>
-              <span className="text-sm font-normal lg:text-lg">
+              <span className="text-sm font-normal lg:text-lg hidden-long-text">
                 {movie?.overview}
               </span>
               <div className="flex mt-26 text-lg">

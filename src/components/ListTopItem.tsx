@@ -35,7 +35,7 @@ export const ListTopItem = ({ index, item }: { index: number, item: Item }) => {
   }
   
   return (
-    <div className="swiper-slide flex max-w-[300px] h-210 relative justify-end">
+    <div className="swiper-slide flex max-w-[300px] h-210 relative justify-end hover:cursor-pointer" onClick={openPopupDetail}>
       <img
         className="w-1 absolute -left-30 list-top-item-number"
         src={index ? require(`../assets/images/number-${index}.png`) : ""}

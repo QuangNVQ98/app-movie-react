@@ -26,6 +26,20 @@ export const PopupDetail = () => {
     const getTVData = async (_selectedID: any) => {
       const data: MovieProps = await getTVDetails(_selectedID);
       const seasonsData = await getTVSeasons(_selectedID);
+      if(seasonsData && seasonsData[0]?.season_number === 0) {
+        seasonsData.forEach((item: any) => {
+          item['season_number'] = item['season_number'] + 1
+
+          const episodes = item['episodes']
+
+          if(episodes && episodes.length > 0) {
+            const length = episodes.length
+            episodes.forEach((sub: any) => {
+              sub['season_number'] = sub['season_number'] + 1
+            })
+          }
+        })
+      }
       data.seasons = seasonsData;
       console.log("dataTV: ", data);
 
@@ -85,12 +99,13 @@ export const PopupDetail = () => {
   }
 
   const goToWatchEpisode = (item: Episode) => {
+    console.log('item: ', item)
     navigate({
       pathname: "/watch",
       search: createSearchParams({
           id: String(state?.selectedID),
           mediaType: state?.mediaType,
-          season: (item.season_number === 0) ? String(item.season_number + 1) : String(item.season_number),
+          season: String(item.season_number),
           episode: String(item.episode_number)
       }).toString()
     });
@@ -102,7 +117,7 @@ export const PopupDetail = () => {
 
   return (
     <div className="z-[101] w-full min-h-screen h-full bg-black-05 z-50 overflow-y-scroll fixed top-[50%] left-[50%] !-translate-x-1/2 !-translate-y-1/2 ">
-      <div className="w-full lg:w-[60%] h-auto bg-gray-18 lg:rounded-md shadow-popup-detail lg:my-35 lg:left-[21%] relative">
+      <div className="w-full xl:w-[60%] h-auto bg-gray-18 lg:rounded-md shadow-popup-detail xl:my-35 xl:left-[21%] relative">
         <div
           className="absolute top-10 right-15 cursor-pointer z-50 transition transform ease-in-out duration-700 hover:rotate-180 w-35 h-35 rounded-full bg-gray-18 flex justify-center items-center"
           onClick={closePopupDetail}
@@ -209,26 +224,17 @@ export const PopupDetail = () => {
                     </div>
                   ))}
 
-                  <div className="mb-8 border border-gray-4d mx-10"></div>
+                  {/* <div className="mb-8 border border-gray-4d mx-10"></div>
                   <div onClick={doShowAllSeason} className="text-base font-semibold text-center px-15 py-10 hover:bg-gray-42">
                     Show all episodes
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
 
             <div className="w-full mt-10">
-              
-              {/* {
-                showAllSeason && movies?.seasons.map((se: Season) => {
-
-                }
-                )
-
-              } */}
-              
-              { movies?.seasons[selectedSeason].episodes.map((item: Episode, index: number) => (
-                <div onClick={() => goToWatchEpisode(item)} key={index} className="w-full h-170 px-30 py-15 border-t border-gray-40 flex items-center cursor-pointer">
+              { movies?.seasons[selectedSeason-1].episodes.map((item: Episode, index: number) => (
+                <div onClick={() => goToWatchEpisode(item)} key={item.id} className="w-full h-170 px-30 py-15 border-t border-gray-40 flex items-center cursor-pointer">
                   <div className="text-gray-d2 text-2xl w-[5%]">{item.episode_number}</div>
 
                   <img
@@ -247,6 +253,43 @@ export const PopupDetail = () => {
                   </div>
                 </div>
               ))}
+
+
+              {/* { showAllSeason && movies?.seasons.map((season: Season, index: number) => {
+                
+                <div key={season.id}>
+                  <div className="text-gray-e5 text-lg lg:text-xl mb-15 font-medium">
+                    Episodes
+                  </div>
+
+                  {
+                    season.episodes.map((item: Episode) => {
+                      <div onClick={() => goToWatchEpisode(item)} key={item.id} className="w-full h-170 px-30 py-15 border-t border-gray-40 flex items-center cursor-pointer">
+                        <div className="text-gray-d2 text-2xl w-[5%]">{item.episode_number}</div>
+
+                        <img
+                          className="w-[20%] h-[60%] object-contain mr-15"
+                          src={imageResize(item.still_path, "w154")}
+                          alt=""
+                        />
+
+                        <div className="w-[70%]">
+                          <div className="text-white text-xl font-medium mb-5 hover:underline hover:underline-offset-4">
+                            {item.name}
+                          </div>
+                          <div className="text-gray-d2 text-sm font-thin hidden-long-text-3">
+                            {item.overview}
+                          </div>
+                        </div>
+                      </div>
+
+                    })
+                  }
+
+
+                </div>
+            })} */}
+
 
             </div>
           </div>

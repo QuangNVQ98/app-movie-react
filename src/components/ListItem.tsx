@@ -42,7 +42,7 @@ export const ListItem = ({
   }
 
   return (
-    <div className="swiper-slide flex max-w-[300px] h-170 relative justify-center items-center id_item">
+    <div className="swiper-slide flex max-w-[300px] h-170 relative justify-center items-center id_item hover:cursor-pointer" onClick={openPopupDetail}>
       <img
         className="w-full h-full object-cover relative"
         src={item.poster_path ? imageResize(item.poster_path, "w300") : ""}
